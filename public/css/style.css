@@ -47,7 +47,7 @@ nav a, nav a:hover, nav a:visited {
     float: left;
 }
 
-nav h3:first-child, #content h2:first-child {
+nav h3:first-child, #content h2:first-child, #content p:first-child {
     margin-top: 0;
 }
 
