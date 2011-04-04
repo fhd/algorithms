@@ -42,7 +42,7 @@ $(function() {
     $("#sort").click(function() {
         var controls = $("#algorithms, #shuffle, #sort");
         controls.attr("disabled", "true");
-        var worker = new Worker("js/insertionsort.js");
+        var worker = new Worker("js/worker.js");
         worker.onmessage = function(event) {
             var data = event.data;
             array = data.array;
@@ -50,7 +50,7 @@ $(function() {
             if (!currentIndex)
                 controls.removeAttr("disabled");
         };
-        worker.postMessage(array);
+        worker.postMessage({script: "insertionsort.js", "array": array});
     });
     Painter.init($("#canvas")[0]);
     setInterval(Painter.draw, 10);

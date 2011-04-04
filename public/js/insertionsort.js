@@ -1,5 +1,4 @@
-importScripts("worker.js");
-algorithm = function(array) {
+function sort(array) {
     for (var i = 1; i < array.length; i++) {
         var key = array[i];
         for (var j = i - 1; j >= 0 && array[j] > key; j--)
@@ -7,4 +6,4 @@ algorithm = function(array) {
         array[j + 1] = key;
         update(i, array);
     }
-};
+}

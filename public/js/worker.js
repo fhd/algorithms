@@ -1,5 +1,3 @@
-var algorithm;
-
 function sleep(ms) {
     var start = new Date().getTime();
     while (new Date().getTime() - start < ms);
@@ -19,8 +17,9 @@ function makeNumeric(array) {
 }
 
 onmessage = function(event) {
-    var array = event.data;
+    var array = event.data.array;
     makeNumeric(array);
-    algorithm(array);
+    importScripts(event.data.script);
+    sort(array);
     postMessage({"array": array});
 }
