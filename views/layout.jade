@@ -25,7 +25,8 @@ html
             h3 Sorting
             ul
                 - each algorithm in algorithms
-                    - var url = "/" + algorithm.id;
-                        a(href=url)= algorithm.name
+                    li
+                        - var url = "/" + algorithm.id;
+                            a(href=url)= algorithm.name
 
         div#content!= body
