@@ -3,11 +3,8 @@ function sleep(ms) {
     while (new Date().getTime() - start < ms);
 }
 
-function update(currentIndex, array) {
-    postMessage({
-        "currentIndex": currentIndex,
-        "array": array,
-    });
+function update(array) {
+    postMessage({"array": array, finished: false});
     sleep(200);
 }
 
@@ -21,5 +18,5 @@ onmessage = function(event) {
     makeNumeric(array);
     importScripts(event.data.script);
     sort(array);
-    postMessage({"array": array});
+    postMessage({"array": array, finished: true});
 }

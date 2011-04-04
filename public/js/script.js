@@ -46,8 +46,7 @@ $(function() {
         worker.onmessage = function(event) {
             var data = event.data;
             array = data.array;
-            currentIndex = data.currentIndex;
-            if (!currentIndex)
+            if (data.finished)
                 controls.removeAttr("disabled");
         };
         worker.postMessage({script: "insertionsort.js", "array": array});
