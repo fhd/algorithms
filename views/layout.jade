@@ -1,0 +1,31 @@
+!!! 5
+html
+    head
+        title Algorithms
+        link(rel="stylesheet", type="text/css", href="css/smoothness/jquery-ui-1.8.11.custom.css")
+        link(rel="stylesheet", type="text/css", href="css/style.css")
+        script(src="js/libs/jquery-1.5.1.min.js")
+        script(src="js/libs/jquery-ui-1.8.11.custom.min.js")
+        script(src="js/script.js")
+
+    body
+        header
+            a(href="http://github.com/fhd/algorithms", id="github-ribbon")
+                img(src="img/github-ribbon.png", alt="Fork me on GitHub")
+
+            h1 Algorithms
+            p
+                | This is a demonstration of selected algorithms from
+                a(href="http://mitpress.mit.edu/catalog/item/default.asp?ttype=2&tid=11866") Introduction to Algorithms by Cormen et. al.
+                | , implemented in JavaScript by
+                a(href="http://ubercode.de") Felix H. Dahlke
+                | .
+
+        nav
+            h3 Sorting
+            ul
+                - each algorithm in algorithms
+                    - var url = "/" + algorithm.id;
+                        a(href=url)= algorithm.name
+
+        div#content!= body

@@ -49,7 +49,10 @@ $(function() {
             if (data.finished)
                 controls.removeAttr("disabled");
         };
-        worker.postMessage({script: "insertionsort.js", "array": array});
+        worker.postMessage({
+            script: location.pathname.substring(1) + ".js",
+            "array": array
+        });
     });
     Painter.init($("#canvas")[0]);
     setInterval(Painter.draw, 10);
