@@ -34,29 +34,31 @@ var Painter = (function(canvas) {
 })();
 
 $(function() {
-    $.SyntaxHighlighter.init();
+    if (typeof currentAlgorithmFile != "undefined") {
+        $.SyntaxHighlighter.init();
 
-    array.shuffle();
-    $("#shuffle").click(function() {
         array.shuffle();
-    });
-
-    $("#sort").click(function() {
-        var controls = $("#algorithms, #shuffle, #sort");
-        controls.attr("disabled", "true");
-        var worker = new Worker("js/worker.js");
-        worker.onmessage = function(event) {
-            var data = event.data;
-            array = data.array;
-            if (data.finished)
-                controls.removeAttr("disabled");
-        };
-        worker.postMessage({
-            script: currentAlgorithmFile,
-            "array": array
+        $("#shuffle").click(function() {
+            array.shuffle();
         });
-    });
 
-    Painter.init($("#canvas")[0]);
-    setInterval(Painter.draw, 10);
+        $("#sort").click(function() {
+            var controls = $("#algorithms, #shuffle, #sort");
+            controls.attr("disabled", "true");
+            var worker = new Worker("js/worker.js");
+            worker.onmessage = function(event) {
+                var data = event.data;
+                array = data.array;
+                if (data.finished)
+                    controls.removeAttr("disabled");
+            };
+            worker.postMessage({
+                script: currentAlgorithmFile,
+                "array": array
+            });
+        });
+
+        Painter.init($("#canvas")[0]);
+        setInterval(Painter.draw, 10);
+    }
 });
