@@ -17,5 +17,6 @@ onmessage = function(event) {
     var array = event.data.array;
     makeNumeric(array);
     importScripts(event.data.script);
-    postMessage({"array": sort(array), finished: true});
+    sort(array);
+    postMessage({"array": array, finished: true});
 }

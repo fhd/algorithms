@@ -6,5 +6,4 @@ function sort(array) {
         array[j + 1] = key;
         update(array);
     }
-    return array;
 }

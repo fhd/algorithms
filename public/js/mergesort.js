@@ -1,21 +1,27 @@
-function merge(array1, array2) {
-    var array = [],
+function merge(array, start, middle, end) {
+    var array1 = array.slice(start, middle),
+        array2 = array.slice(middle, end),
         j = 0,
         k = 0;
-    for (var i = 0; i < array1.length + array2.length; i++) {
+    for (var i = start; i < end; i++) {
         if (j < array1.length && (k == array2.length || array1[j] <= array2[k]))
             array[i] = array1[j++];
         else
             array[i] = array2[k++];
     }
-    return array;
 }
 
-function sort(array) {
-    if (array.length == 1)
-        return array;
+function sort(array, start, end) {
+    if (start == undefined)
+        start = 0;
+    if (end == undefined)
+        end = array.length;
 
-    var middle = array.length / 2;
-    return merge(sort(array.slice(0, middle)),
-                 sort(array.slice(middle)));
+    if (start < end - 1) {
+        var middle = Math.floor((start + end) / 2);
+        sort(array, start, middle);
+        sort(array, middle, end);
+        merge(array, start, middle, end);
+        update(array);
+    }
 }
