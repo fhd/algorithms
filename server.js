@@ -33,14 +33,18 @@ app.get("/", function(req, res) {
     res.render("index", {"algorithms": algorithms});
 });
 
+var fs = require("fs");
+
 app.get("/:algorithm", function(req, res) {
     var algorithm = algorithms[req.params.algorithm];
-    if (algorithm)
+    if (algorithm) {
+        algorithm.file = algorithm.id + ".js";
+        algorithm.code = fs.readFileSync("public/js/" + algorithm.id + ".js");
         res.render("algorithm", {
             currentAlgorithm: algorithm,
             "algorithms": algorithms
         });
-    else
+    } else
         res.send(404);
 });
 

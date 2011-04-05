@@ -55,3 +55,8 @@ nav h3:first-child, #content h2:first-child, #content p:first-child {
     margin: 5px;
     border: 1px solid black;
 }
+
+#code {
+    padding: 5px;
+    margin-top: 20px;
+}

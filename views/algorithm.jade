@@ -1,3 +1,6 @@
+script
+    var currentAlgorithmFile = "!{currentAlgorithm.file}";
+
 h2= currentAlgorithm.name
 
 canvas(id="canvas", width="210", height="110")
@@ -5,3 +8,5 @@ canvas(id="canvas", width="210", height="110")
 div
     input(type="button", id="shuffle", value="Shuffle")
     input(type="button", id="sort", value="Sort")
+
+pre#code.language-javascript= currentAlgorithm.code

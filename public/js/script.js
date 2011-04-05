@@ -34,9 +34,11 @@ var Painter = (function(canvas) {
 })();
 
 $(function() {
+    $.SyntaxHighlighter.init();
+
     array.shuffle();
     $("#shuffle").click(function() {
-        array.shuffle()
+        array.shuffle();
     });
 
     $("#sort").click(function() {
@@ -50,10 +52,11 @@ $(function() {
                 controls.removeAttr("disabled");
         };
         worker.postMessage({
-            script: location.pathname.substring(1) + ".js",
+            script: currentAlgorithmFile,
             "array": array
         });
     });
+
     Painter.init($("#canvas")[0]);
     setInterval(Painter.draw, 10);
 });
