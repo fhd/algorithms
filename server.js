@@ -1,15 +1,18 @@
 var algorithms = {
     insertionsort: {
         id: "insertionsort",
-        name: "Insertion Sort"
+        name: "Insertion Sort",
+        description: "A simple sort algorithm, works like most people sort cards on their hand."
     },
     mergesort: {
         id: "mergesort",
-        name: "Merge Sort"
+        name: "Merge Sort",
+        description: "A recursive sort algorithm that performs well for large volumes of data.",
     },
     bubblesort: {
         id: "bubblesort",
-        name: "Bubble Sort"
+        name: "Bubble Sort",
+        description: "An extremely simple sort algorithm with abysmal performance."
     }
 };
 
