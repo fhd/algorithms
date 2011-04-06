@@ -1,4 +1,6 @@
-var array = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+var array = [];
+for (var i = 0; i < 30; i++)
+    array[i] = i + 1;
 
 Array.prototype.shuffle = function() {
     var s = [];
@@ -23,10 +25,11 @@ var Painter = (function(canvas) {
         context.fillStyle = "rgb(0, 0, 0)";
         context.font = "12px sans";
         context.textBaseline = "top";
+        var barWidth = 5;
         $.each(array, function(index, value) {
-            context.fillRect(index * 20 + 10,
-                             ((array.length + 1) - value) * 10,
-                             10, 10 * value);
+            context.fillRect(index * barWidth * 2 + barWidth,
+                             ((array.length + 1) - value) * barWidth,
+                             barWidth, barWidth * value);
         });
     }
 
