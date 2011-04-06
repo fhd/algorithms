@@ -6,6 +6,10 @@ var algorithms = {
     mergesort: {
         id: "mergesort",
         name: "Merge Sort"
+    },
+    bubblesort: {
+        id: "bubblesort",
+        name: "Bubble Sort"
     }
 };
 
