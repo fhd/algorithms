@@ -2,6 +2,11 @@ header {
     margin-bottom: 40px;
 }
 
+header h1 a {
+    color: Black;
+    text-decoration: none;
+}
+
 #github-ribbon {
     position: absolute;
     top: 0;
