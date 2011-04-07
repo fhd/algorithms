@@ -38,7 +38,7 @@ var Painter = (function(canvas) {
 
 $(function() {
     if (typeof currentAlgorithmFile != "undefined") {
-        $.SyntaxHighlighter.init();
+        prettyPrint(); // Prettify
 
         array.shuffle();
         $("#shuffle").click(function() {
