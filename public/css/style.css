@@ -7,6 +7,10 @@ header h1 a {
     text-decoration: none;
 }
 
+header p {
+    margin-right: 150px;
+}
+
 #github-ribbon {
     position: absolute;
     top: 0;
