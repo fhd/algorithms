@@ -13,6 +13,11 @@ var algorithms = {
         id: "bubblesort",
         name: "Bubble Sort",
         description: "An extremely simple sort algorithm with abysmal performance."
+    },
+    heapsort: {
+        id: "heapsort",
+        name: "Heap Sort",
+        description: "A well performing sort algorithm that uses a binary heap."
     }
 };
 
