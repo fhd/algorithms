@@ -5,17 +5,20 @@ function isSorted(array) {
     return true;
 }
 
-function sortAlgorithmTest(algorithm) {
+function sortAlgorithmTest(algorithm, array) {
     return function() {
         expect(1);
-        var array = [7, 3, 5, 9, 2, 1, 6, 10, 4, 8];
         algorithm(array);
-        ok(isSorted(array), "The array [" + array + "] isn't sorted.");
+        ok(isSorted(array), "The array [" + array + "] should be sorted.");
     };
 }
 
-test("Insertion Sort", sortAlgorithmTest(insertionSort));
-test("Merge Sort", sortAlgorithmTest(mergeSort));
-test("Bubble Sort", sortAlgorithmTest(bubbleSort));
-test("Heap Sort", sortAlgorithmTest(heapSort));
+var unsortedArray = [7, 3, 5, 9, 2, 1, 6, 10, 4, 8];
+
+test("Insertion Sort", sortAlgorithmTest(insertionSort, unsortedArray));
+test("Merge Sort", sortAlgorithmTest(mergeSort, unsortedArray));
+test("Merge Sort - Odd number of elements",
+     sortAlgorithmTest(mergeSort, [3, 2, 1]));
+test("Bubble Sort", sortAlgorithmTest(bubbleSort, unsortedArray));
+test("Heap Sort", sortAlgorithmTest(heapSort, unsortedArray));
 

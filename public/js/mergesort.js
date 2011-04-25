@@ -18,7 +18,7 @@ function sort(array, start, end) {
         end = array.length;
 
     if (start < end - 1) {
-        var middle = Math.floor((start + end) / 2);
+        var middle = Math.floor((start + end + 1) / 2);
         sort(array, start, middle);
         sort(array, middle, end);
         merge(array, start, middle, end);
