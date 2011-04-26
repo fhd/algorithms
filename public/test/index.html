@@ -3,9 +3,8 @@
     <head>
         <title>QUnit Tests</title>
         <link rel="stylesheet" href="qunit/qunit.css" media="screen"/>
-        <script>
-            function update() {}
-        </script>
+        <script src="../js/libs/jquery-1.5.1.min.js"></script>
+	<script src="../js/worker.js"></script>
         <script src="../js/insertionsort.js"></script>
         <script>
             var insertionSort = sort;
@@ -23,7 +22,8 @@
             var heapSort = sort;
         </script>
         <script src="qunit/qunit.js"></script>
-        <script src="tests.js"></script>
+	<script src="worker.js"></script>
+        <script src="sort.js"></script>
     </head>
     <body class="flora">
         <h1 id="qunit-header">QUnit Test Suite</h1>
