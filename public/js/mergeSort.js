@@ -11,7 +11,7 @@ function merge(array, start, middle, end) {
     }
 }
 
-function sort(array, start, end) {
+function mergeSort(array, start, end) {
     if (start == undefined)
         start = 0;
     if (end == undefined)
@@ -19,8 +19,8 @@ function sort(array, start, end) {
 
     if (start < end - 1) {
         var middle = Math.floor((start + end + 1) / 2);
-        sort(array, start, middle);
-        sort(array, middle, end);
+        mergeSort(array, start, middle);
+        mergeSort(array, middle, end);
         merge(array, start, middle, end);
         update(array);
     }

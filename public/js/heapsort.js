@@ -27,7 +27,7 @@ function buildMaxHeap(array) {
     }
 }
 
-function sort(array) {
+function heapsort(array) {
     buildMaxHeap(array);
     for (var i = array.length - 1; i >= 1; i--) {
         exchange(array, 0, i);

@@ -1,20 +1,20 @@
 var algorithms = {
-    insertionsort: {
+    insertionSort: {
         name: "Insertion Sort",
         description: "A simple sort algorithm, works like most people sort cards on their hand."
     },
-    mergesort: {
+    mergeSort: {
         name: "Merge Sort",
         description: "A recursive sort algorithm that performs well for large volumes of data."
     },
-    bubblesort: {
+    bubbleSort: {
         name: "Bubble Sort",
-        description: "An extremely simple sort algorithm with abysmal performance."
+        description: "An extremely simple sort algorithm with so abysmal performance that this demonstration doesn't show every step."
     },
     heapsort: {
-        name: "Heap Sort",
+        name: "Heapsort",
         description: "A well performing sort algorithm that uses a binary heap."
-    }
+    },
 };
 
 var $ = require("jquery");

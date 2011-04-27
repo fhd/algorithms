@@ -8,7 +8,7 @@ module("sort", {
     }
 });
 
-$.each(["insertionSort", "mergeSort", "bubbleSort", "heapSort"],
+$.each(["insertionSort", "mergeSort", "bubbleSort", "heapsort"],
        function(_, algorithmName) {
            function isSorted(array) {
                for (var i = 0; i < array.length - 1; i++)
@@ -17,18 +17,19 @@ $.each(["insertionSort", "mergeSort", "bubbleSort", "heapSort"],
                return true;
            }
 
-           function sortAlgorithmTest(algorithm, array) {
-               return function() {
-                   expect(1);
-                   algorithm(array);
-                   ok(isSorted(array),
-                      "The array [" + array + "] should be sorted.");
-               };
+           function sorted(array) {
+               ok(isSorted(array),
+                  "The array [" + array + "] should be sorted.");
            }
 
-           var algorithm = window[algorithmName];
-           test(algorithmName,
-                sortAlgorithmTest(algorithm, [7, 3, 5, 9, 2, 1, 6, 10, 4, 8]));
-           test(algorithmName + " - odd numbered array.",
-                sortAlgorithmTest(algorithm, [3, 2, 1]));
+           test(algorithmName, function() {
+               expect(2);
+               var algorithm = window[algorithmName],
+                   array = [7, 3, 5, 9, 2, 1, 6, 10, 4, 8];
+               algorithm(array);
+               sorted(array);
+               var oddNumberedArray = [3, 2, 1];
+               algorithm(oddNumberedArray);
+               sorted(oddNumberedArray);
+           });
        });
