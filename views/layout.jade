@@ -29,7 +29,6 @@ html
             ul
                 - each algorithm in algorithms
                     li
-                        - var url = "/" + algorithm.id;
-                            a(href=url)= algorithm.name
+                        a(href=algorithm.url)= algorithm.name
 
         div#content!= body

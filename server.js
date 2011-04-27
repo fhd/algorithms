@@ -1,28 +1,31 @@
 var algorithms = {
     insertionsort: {
-        id: "insertionsort",
         name: "Insertion Sort",
         description: "A simple sort algorithm, works like most people sort cards on their hand."
     },
     mergesort: {
-        id: "mergesort",
         name: "Merge Sort",
-        description: "A recursive sort algorithm that performs well for large volumes of data.",
+        description: "A recursive sort algorithm that performs well for large volumes of data."
     },
     bubblesort: {
-        id: "bubblesort",
         name: "Bubble Sort",
         description: "An extremely simple sort algorithm with abysmal performance."
     },
     heapsort: {
-        id: "heapsort",
         name: "Heap Sort",
         description: "A well performing sort algorithm that uses a binary heap."
     }
 };
 
-var express = require("express");
-var app = module.exports = express.createServer();
+var $ = require("jquery");
+
+$.each(algorithms, function (key, value) {
+    value.file = key + ".js";
+    value.url = "/" + key;
+});
+
+var express = require("express"),
+    app = module.exports = express.createServer();
 
 app.configure(function() {
     app.set("views", __dirname + "/views");
@@ -50,8 +53,7 @@ var fs = require("fs");
 app.get("/:algorithm", function(req, res) {
     var algorithm = algorithms[req.params.algorithm];
     if (algorithm) {
-        algorithm.file = algorithm.id + ".js";
-        algorithm.code = fs.readFileSync("public/js/" + algorithm.id + ".js");
+        algorithm.code = fs.readFileSync("public/js/" + algorithm.file);
         res.render("algorithm", {
             currentAlgorithm: algorithm,
             "algorithms": algorithms
