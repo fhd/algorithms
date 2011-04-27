@@ -16,9 +16,8 @@ function makeNumeric(array) {
 onmessage = function(event) {
     var array = event.data.array;
     makeNumeric(array);
-    importScripts(event.data.script);
-    // TODO: Find a better way to get the function.
-    var algorithm = eval(event.data.script.replace(".js", ""));
+    importScripts(event.data.file);
+    var algorithm = eval(event.data.functionName);
     algorithm(array);
     postMessage({"array": array, finished: true});
 }

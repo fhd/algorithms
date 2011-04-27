@@ -56,7 +56,8 @@ $(function() {
                     controls.removeAttr("disabled");
             };
             worker.postMessage({
-                script: currentAlgorithmFile,
+                file: currentAlgorithmFile,
+                functionName: currentAlgorithmFunction,
                 "array": array
             });
         });

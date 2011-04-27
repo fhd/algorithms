@@ -21,6 +21,7 @@ var $ = require("jquery");
 
 $.each(algorithms, function (key, value) {
     value.file = key + ".js";
+    value.functionName = key;
     value.url = "/" + key;
 });
 
