@@ -3,12 +3,11 @@ function merge(array, start, middle, end) {
         array2 = array.slice(middle, end),
         j = 0,
         k = 0;
-    for (var i = start; i < end; i++) {
+    for (var i = start; i < end; i++)
         if (j < array1.length && (k == array2.length || array1[j] <= array2[k]))
             array[i] = array1[j++];
         else
             array[i] = array2[k++];
-    }
 }
 
 function mergeSort(array, start, end) {

@@ -8,7 +8,7 @@ module("sort", {
     }
 });
 
-$.each(["insertionSort", "mergeSort", "bubbleSort", "heapsort"],
+$.each(["insertionSort", "mergeSort", "bubbleSort", "heapsort", "quicksort"],
        function(_, algorithmName) {
            function isSorted(array) {
                for (var i = 0; i < array.length - 1; i++)

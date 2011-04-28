@@ -1,7 +1,7 @@
-function exchange(array, index1, index2) {
-    var temp = array[index1];
-    array[index1] = array[index2];
-    array[index2] = temp;
+function exchange(array, i, j) {
+    var temp = array[i];
+    array[i] = array[j];
+    array[j] = temp;
 }
 
 function maxHeapify(array, root) {

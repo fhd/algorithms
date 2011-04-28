@@ -5,7 +5,7 @@ var algorithms = {
     },
     mergeSort: {
         name: "Merge Sort",
-        description: "A recursive sort algorithm that performs well for large volumes of data."
+        description: "A fast, recursive sort algorithm that divides and merges the input."
     },
     bubbleSort: {
         name: "Bubble Sort",
@@ -15,6 +15,10 @@ var algorithms = {
         name: "Heapsort",
         description: "A well performing sort algorithm that uses a binary heap."
     },
+    quicksort: {
+        name: "Quicksort",
+        description: "A fast, recursive sort algorithm that partitions the input."
+    }
 };
 
 var $ = require("jquery");
