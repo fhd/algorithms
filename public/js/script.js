@@ -36,7 +36,7 @@ var Painter = (function(canvas) {
     return Painter;
 })();
 
-$(function() {
+function init() {
     if (typeof currentAlgorithmFile != "undefined") {
         prettyPrint(); // Prettify
 
@@ -65,4 +65,6 @@ $(function() {
         Painter.init($("#canvas")[0]);
         setInterval(Painter.draw, 10);
     }
-});
+}
+
+$(init);

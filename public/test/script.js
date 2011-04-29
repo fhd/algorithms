@@ -33,3 +33,34 @@ test("Painter", function() {
     ok(mockContextUsed,
        "The Painter should use the context of the supplied canvas.");
 });
+
+test("init", function() {
+    expect(2);
+
+    currentAlgorithmFile = "";
+
+    var prettyPrintCalled = false;
+    prettyPrint = function() {
+        prettyPrintCalled = true;
+    };
+
+    var oldPainter = Painter;
+    Painter = {
+        init: function() {},
+        draw: function() {}
+    };
+
+    var oldSetInterval = setInterval, drawFunction;
+    setInterval = function(f) {
+        drawFunction = f;
+    };
+
+    init();
+
+    ok(prettyPrintCalled, "Google Prettify should be activated.");
+    equal(drawFunction, Painter.draw,
+          "The draw function interval should be set.");
+
+    Painter = oldPainter;
+    setInterval = oldSetInterval;
+});
