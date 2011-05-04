@@ -1,23 +1,28 @@
 var algorithms = {
     insertionSort: {
         name: "Insertion Sort",
-        description: "A simple sort algorithm, works like most people sort cards on their hand."
+        description: "A simple sort algorithm, works like most people sort cards on their hand.",
+        category: "sorting"
     },
     mergeSort: {
         name: "Merge Sort",
-        description: "A fast, recursive sort algorithm that divides and merges the input."
+        description: "A fast, recursive sort algorithm that divides and merges the input.",
+        category: "sorting"
     },
     bubbleSort: {
         name: "Bubble Sort",
-        description: "An extremely simple sort algorithm with so abysmal performance that this demonstration doesn't show every step."
+        description: "An extremely simple sort algorithm with so abysmal performance that this demonstration doesn't show every step.",
+        category: "sorting"
     },
     heapsort: {
         name: "Heapsort",
-        description: "A well performing sort algorithm that uses a binary heap."
+        description: "A well performing sort algorithm that uses a binary heap.",
+        category: "sorting"
     },
     quicksort: {
         name: "Quicksort",
-        description: "A fast, recursive sort algorithm that partitions the input."
+        description: "A fast, recursive sort algorithm that partitions the input.",
+        category: "sorting"
     }
 };
 
@@ -58,8 +63,9 @@ var fs = require("fs");
 app.get("/:algorithm", function(req, res) {
     var algorithm = algorithms[req.params.algorithm];
     if (algorithm) {
-        algorithm.code = fs.readFileSync("public/js/" + algorithm.file);
-        res.render("algorithm", {
+        algorithm.code = fs.readFileSync("public/js/" + algorithm.category
+                                         + "/" + algorithm.file);
+        res.render(algorithm.category, {
             currentAlgorithm: algorithm,
             "algorithms": algorithms
         });

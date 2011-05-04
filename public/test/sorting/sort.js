@@ -1,4 +1,4 @@
-module("sort", {
+module("sorting/sort", {
     setup: function() {
         temp = update;
         update = function() {};

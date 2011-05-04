@@ -48,7 +48,7 @@ function init() {
         $("#sort").click(function() {
             var controls = $("#algorithms, #shuffle, #sort");
             controls.attr("disabled", "true");
-            var worker = new Worker("js/worker.js");
+            var worker = new Worker("js/sorting/worker.js");
             worker.onmessage = function(event) {
                 var data = event.data;
                 array = data.array;
@@ -66,5 +66,3 @@ function init() {
         setInterval(Painter.draw, 10);
     }
 }
-
-$(init);

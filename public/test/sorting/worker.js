@@ -1,4 +1,4 @@
-module("worker");
+module("sorting/worker");
 
 test("sleep", function() {
     expect(1);

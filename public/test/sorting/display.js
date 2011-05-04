@@ -1,4 +1,4 @@
-module("script");
+module("sorting/display");
 
 test("Array.shuffle", function() {
     expect(1);
