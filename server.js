@@ -1,37 +1,43 @@
-var algorithms = {
-    insertionSort: {
-        name: "Insertion Sort",
-        description: "A simple sort algorithm, works like most people sort cards on their hand.",
-        category: "sorting"
-    },
-    mergeSort: {
-        name: "Merge Sort",
-        description: "A fast, recursive sort algorithm that divides and merges the input.",
-        category: "sorting"
-    },
-    bubbleSort: {
-        name: "Bubble Sort",
-        description: "An extremely simple sort algorithm with so abysmal performance that this demonstration doesn't show every step.",
-        category: "sorting"
-    },
-    heapsort: {
-        name: "Heapsort",
-        description: "A well performing sort algorithm that uses a binary heap.",
-        category: "sorting"
-    },
-    quicksort: {
-        name: "Quicksort",
-        description: "A fast, recursive sort algorithm that partitions the input.",
-        category: "sorting"
-    },
-    randomizedQuicksort: {
-        name: "Randomized Quicksort",
-        description: "A variant of Quicksort that avoids the worst case running time by partitioning around a random pivot element.",
-        category: "sorting"
+var categories = {
+    sorting: {
+        name: "Sorting",
+        algorithms: {
+            insertionSort: {
+                name: "Insertion Sort",
+                description: "A simple sort algorithm, works like most people sort cards on their hand.",
+            },
+            mergeSort: {
+                name: "Merge Sort",
+                description: "A fast, recursive sort algorithm that divides and merges the input.",
+            },
+            bubbleSort: {
+                name: "Bubble Sort",
+                description: "An extremely simple sort algorithm with so abysmal performance that this demonstration doesn't show every step.",
+            },
+            heapsort: {
+                name: "Heapsort",
+                description: "A well performing sort algorithm that uses a binary heap.",
+            },
+            quicksort: {
+                name: "Quicksort",
+                description: "A fast, recursive sort algorithm that partitions the input.",
+            },
+            randomizedQuicksort: {
+                name: "Randomized Quicksort",
+                description: "A variant of Quicksort that avoids the worst case running time by partitioning around a random pivot element.",
+            }
+        }
     }
 };
 
-var $ = require("jquery");
+var $ = require("jquery"), algorithms = {};
+
+$.each(categories, function (categoryKey, category) {
+    $.each(category.algorithms, function(algorithmKey, algorithm) {
+        algorithm.category = categoryKey;
+        algorithms[algorithmKey] = algorithm;
+    });
+});
 
 $.each(algorithms, function (key, value) {
     value.file = key + ".js";
@@ -60,7 +66,7 @@ app.configure("production", function() {
 });
 
 app.get("/", function(req, res) {
-    res.render("index", {"algorithms": algorithms});
+    res.render("index", {"categories": categories});
 });
 
 var fs = require("fs");
@@ -72,7 +78,7 @@ app.get("/:algorithm", function(req, res) {
                                          + "/" + algorithm.file);
         res.render(algorithm.category, {
             currentAlgorithm: algorithm,
-            "algorithms": algorithms
+            "categories": categories
         });
     } else
         res.send(404);

@@ -24,10 +24,11 @@ html
                 | .
 
         nav
-            h3 Sorting
-            ul
-                - each algorithm in algorithms
-                    li
-                        a(href=algorithm.url)= algorithm.name
+            - each category in categories
+                h3= category.name
+                ul
+                    - each algorithm in category.algorithms
+                        li
+                            a(href=algorithm.url)= algorithm.name
 
         div#content!= body
