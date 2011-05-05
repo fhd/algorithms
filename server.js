@@ -24,7 +24,7 @@ var categories = {
             },
             randomizedQuicksort: {
                 name: "Randomized Quicksort",
-                description: "A variant of Quicksort that avoids the worst case running time by partitioning around a random pivot element.",
+                description: "A variant of <a href=\"/quicksort\">Quicksort</a> that avoids the worst case running time by partitioning around a random pivot element.",
             }
         }
     }

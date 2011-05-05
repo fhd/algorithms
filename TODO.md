@@ -3,4 +3,4 @@
 - Implement data structures
  - Stack
  - Queue
-- Add a link to quicksort to the description of randomized quicksort
+
