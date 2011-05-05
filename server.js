@@ -23,6 +23,11 @@ var algorithms = {
         name: "Quicksort",
         description: "A fast, recursive sort algorithm that partitions the input.",
         category: "sorting"
+    },
+    randomizedQuicksort: {
+        name: "Randomized Quicksort",
+        description: "A variant of Quicksort that avoids the worst case running time by partitioning around a random pivot element.",
+        category: "sorting"
     }
 };
 

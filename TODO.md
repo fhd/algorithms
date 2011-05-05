@@ -1,6 +1,6 @@
-- Implement randomized quicksort
 - Implement non-comparison sort algorithms (radix etc.)
 - Implement selection problem alrogithms (randomized select and select)
 - Implement data structures
  - Stack
  - Queue
+- Add a link to quicksort to the description of randomized quicksort

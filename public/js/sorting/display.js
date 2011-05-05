@@ -9,7 +9,7 @@ Array.prototype.shuffle = function() {
     while (s.length)
         this.push(s.pop());
     return this;
-}
+};
 
 var Painter = (function(canvas) {
     var Painter = {}, width, height, context;

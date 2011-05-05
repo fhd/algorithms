@@ -8,28 +8,37 @@ module("sorting/sort", {
     }
 });
 
-$.each(["insertionSort", "mergeSort", "bubbleSort", "heapsort", "quicksort"],
-       function(_, algorithmName) {
-           function isSorted(array) {
-               for (var i = 0; i < array.length - 1; i++)
-                   if (array[i] >= array[i + 1])
+$.each([insertionSort, mergeSort, bubbleSort, heapsort, quicksort,
+        randomizedQuicksort], function(_, algorithm) {
+           Array.prototype.isSorted = function() {
+               for (var i = 0; i < this.length - 1; i++)
+                   if (this[i] >= this[i + 1])
                        return false;
                return true;
-           }
+           };
 
-           function sorted(array) {
-               ok(isSorted(array),
-                  "The array [" + array + "] should be sorted.");
-           }
+           Array.prototype.containsAll = function(array) {
+               if (this.length < array.length)
+                   return false;
 
-           test(algorithmName, function() {
-               expect(2);
-               var algorithm = window[algorithmName],
-                   array = [7, 3, 5, 9, 2, 1, 6, 10, 4, 8];
-               algorithm(array);
-               sorted(array);
-               var oddNumberedArray = [3, 2, 1];
-               algorithm(oddNumberedArray);
-               sorted(oddNumberedArray);
+               for (var i = 0; i < array.length; i++)
+                   if (this.indexOf(array[i]) == -1)
+                       return false;
+               return true;
+           };
+
+           test(algorithm.name, function() {
+               expect(4);
+               var array = [7, 3, 5, 9, 2, 1, 6, 10, 4, 8],
+                   oddNumberedArray = [3, 2, 1];
+               $.each([array, oddNumberedArray], function(_, array) {
+                       var originalArray = array.slice(0);
+                       algorithm(array);
+                       ok(array.isSorted(),
+                          "The array [" + array + "] should be sorted.");
+                       ok(array.containsAll(originalArray),
+                          "The array [" + array + "] should contain all elements from "
+                          + "the original array [" + originalArray + "].");
+                   });
            });
        });
