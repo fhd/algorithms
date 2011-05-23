@@ -3,4 +3,7 @@
 - Implement data structures
  - Stack
  - Queue
+ - Linked List
+ - Hash Map
+ - Binary Tree
 
