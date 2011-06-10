@@ -4,35 +4,36 @@ var categories = {
         algorithms: {
             insertionSort: {
                 name: "Insertion Sort",
-                description: "\
-A simple sort algorithm, works like most people sort cards on their hand.",
+                description: "A simple sort algorithm, works like most people "
+                    + "sort cards on their hand.",
             },
             mergeSort: {
                 name: "Merge Sort",
-                description: "\
-A fast, recursive sort algorithm that divides and merges the input.",
+                description: "A fast, recursive sort algorithm that divides "
+                    + "and merges the input.",
             },
             bubbleSort: {
                 name: "Bubble Sort",
-                description: "\
-An extremely simple sort algorithm with so abysmal performance that this \
-demonstration doesn't show every step.",
+                description: "An extremely simple sort algorithm with so "
+                    + "abysmal performance that this demonstration doesn't "
+                    + "show every step.",
             },
             heapsort: {
                 name: "Heapsort",
-                description: "\
-A well performing sort algorithm that uses a binary heap.",
+                description: "A well performing sort algorithm that uses a "
+                    + "binary heap.",
             },
             quicksort: {
                 name: "Quicksort",
-                description: "\
-A fast, recursive sort algorithm that partitions the input.",
+                description: "A fast, recursive sort algorithm that partitions "
+                    + "the input.",
             },
             randomizedQuicksort: {
                 name: "Randomized Quicksort",
-                description: "\
-A variant of <a href=\"/quicksort\">Quicksort</a> that avoids the worst case \
-running time by partitioning around a random pivot element.",
+                description: "A variant of "
+                    + "<a href=\"/quicksort\">Quicksort</a> that avoids the "
+                    + "worst case running time by partitioning around a random "
+                    + "pivot element.",
             }
         }
     }
