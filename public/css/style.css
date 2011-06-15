@@ -65,6 +65,19 @@ nav h3:first-child, #content h2:first-child, #content p:first-child {
     border: 1px solid black;
 }
 
+.operation {
+    display: inline-block;
+    margin-left: 20px;
+}
+
+.operation:first-child {
+    margin-left: 0;
+}
+
+#popButton {
+    margin-right: 5px;
+}
+
 #code {
     padding: 5px;
     margin-top: 20px;

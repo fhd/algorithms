@@ -1,0 +1,26 @@
+script(src="js/dataStructures/display.js")
+script(src="js/dataStructures/stack.js")
+
+script
+    var currentAlgorithmFile = "!{currentAlgorithm.file}";
+    $(function() {
+      dataStructures.init(new Stack());
+    });
+
+h2= currentAlgorithm.name
+
+p!= currentAlgorithm.description
+
+canvas(id="canvas", width="305", height="30")
+    | Sorry, your browser doesn't support HTML5 Canvas.
+
+div
+  div.operation
+    input(type="text", id="elementInput", size="3")
+    input(type="button", id="pushButton", value="Push")
+
+  div.operation
+    input(type="button", id="popButton", value="Pop")
+    label(id="elementLabel")
+
+pre#code.prettyprint.lang-js= currentAlgorithm.code

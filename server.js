@@ -5,23 +5,23 @@ var categories = {
             insertionSort: {
                 name: "Insertion Sort",
                 description: "A simple sort algorithm, works like most people "
-                    + "sort cards on their hand.",
+                    + "sort cards on their hand."
             },
             mergeSort: {
                 name: "Merge Sort",
                 description: "A fast, recursive sort algorithm that divides "
-                    + "and merges the input.",
+                    + "and merges the input."
             },
             bubbleSort: {
                 name: "Bubble Sort",
                 description: "An extremely simple sort algorithm with so "
                     + "abysmal performance that this demonstration doesn't "
-                    + "show every step.",
+                    + "show every step."
             },
             heapsort: {
                 name: "Heapsort",
                 description: "A well performing sort algorithm that uses a "
-                    + "binary heap.",
+                    + "binary heap."
             },
             quicksort: {
                 name: "Quicksort",
@@ -33,11 +33,22 @@ var categories = {
                 description: "A variant of "
                     + "<a href=\"/quicksort\">Quicksort</a> that avoids the "
                     + "worst case running time by partitioning around a random "
-                    + "pivot element.",
+                    + "pivot element."
+            }
+        }
+    },
+    dataStructures: {
+        name: "Data Structures",
+        algorithms: {
+            stack: {
+                name: "Stack",
+                description: "A simple data structure that stores elements as "
+                    + "on a physical stack: The first element inserted is the "
+                    + "last to be extracted (FIFO)."
             }
         }
     }
-};
+}
 
 var $ = require("jquery"), algorithms = {};
 

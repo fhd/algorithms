@@ -55,10 +55,10 @@ test("init", function() {
         drawFunction = f;
     };
 
-    init();
+    sorting.init();
 
     ok(prettyPrintCalled, "Google Prettify should be activated.");
-    equal(drawFunction, Painter.draw,
+    equal(Painter.draw, drawFunction,
           "The draw function interval should be set.");
 
     Painter = oldPainter;
