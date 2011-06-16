@@ -21,7 +21,7 @@ function maxHeapify(array, root) {
 
 function buildMaxHeap(array) {
     array.heapSize = array.length;
-    for (var i = array.length / 2; i >= 0; i--) {
+    for (var i = Math.round(array.length / 2); i >= 0; i--) {
         maxHeapify(array, i);
         update(array);
     }
