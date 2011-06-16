@@ -1,22 +1,17 @@
-module("dataStructures/display");
-
-test("Painter", function() {
-    expect(1);
-
-    var mockContextUsed = false,
-        mockFunction = function() {
-            mockContextUsed = true;
-        },
-        mockCanvas = createMockCanvas({
-            clearRect: mockFunction,
-            strokeRect: mockFunction,
-            fillText: mockFunction
-        });
-
-    Painter.init(mockCanvas);
-    Painter.draw();
-    ok(mockContextUsed,
-       "The painter should use the context of the supplied canvas.");
+module("dataStructures/display", {
+    setup: function() {
+        this.mockCanvas = {
+            width: 100,
+            height: 100,
+            getContext: function() {
+                return {
+                    clearRect: function() {},
+                    strokeRect: function() {},
+                    fillText: function() {}
+                };
+            }
+        };
+    }
 });
 
 test("init", function() {
@@ -29,10 +24,10 @@ test("init", function() {
         prettyPrintCalled = true;
     };
 
-    var oldPainter = Painter;
-    Painter = {
-        init: function() {},
-        draw: function() {}
+    var oldCreateDrawFunction = createDrawFunction,
+        expectedDrawFunction = function() {};
+    createDrawFunction = function() {
+        return expectedDrawFunction;
     };
 
     var oldSetInterval = setInterval, drawFunction;
@@ -43,10 +38,10 @@ test("init", function() {
     dataStructures.init();
 
     ok(prettyPrintCalled, "Google Prettify should be activated.");
-    equal(Painter.draw, drawFunction,
+    equal(drawFunction, expectedDrawFunction,
           "The draw function interval should be set.");
 
-    Painter = oldPainter;
+    createDrawFunction = oldCreateDrawFunction;
     setInterval = oldSetInterval;
 });
 
@@ -61,24 +56,10 @@ test("stackToArray", function() {
     deepEqual(stackToArray(s), [3, 2, 1]);
 });
 
-test("stackToArrayWithAnEmptySet", function() {
+test("stackToArrayWithAnEmptyStack", function() {
     expect(1);
     deepEqual(stackToArray(new Stack()), []);
 });
-
-function createMockCanvas(context) {
-    return {
-        width: 100,
-        height: 100,
-        getContext: function() {
-            return context ? context : {
-                clearRect: function() {},
-                strokeRect: function() {},
-                fillText: function() {}
-            };
-        }
-    };
-}
 
 test("push", function() {
     expect(1);
@@ -87,7 +68,7 @@ test("push", function() {
     var pushFunction;
     $ = function(element) {
         if (element == "#canvas")
-            return [createMockCanvas()];
+            return [this.mockCanvas];
         else
             return {
                 click: function(f) {
@@ -114,7 +95,7 @@ test("pop", function() {
     var popFunction, maxLabelText;
     $ = function(element) {
         if (element == "#canvas")
-            return [createMockCanvas()];
+            return [this.mockCanvas];
         else
             return {
                 click: function(f) {
@@ -129,5 +110,5 @@ test("pop", function() {
     dataStructures.init(stack);
     popFunction();
     deepEqual(array, []);
-    equal("5", labelText);
+    equal(labelText, "5");
 });

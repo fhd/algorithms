@@ -12,6 +12,6 @@ test("pop", function() {
     expect(2);
     var stack = new Stack();
     stack.push(1);
-    equals(1, stack.pop());
-    equals(null, stack.pop());
+    equal(stack.pop(), 1);
+    equal(stack.pop(), null);
 });
