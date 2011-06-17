@@ -48,7 +48,7 @@ var array = [],
                         pos += boxWidth;
                     });
                 }
-                setInterval(createDrawFunction($("#canvas"), draw), 10);
+                setInterval(createDrawFunction($("#canvas")[0], draw), 10);
             }
         };
     })();
