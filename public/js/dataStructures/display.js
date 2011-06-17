@@ -1,4 +1,4 @@
-var array = [];
+var boxes = [];
 
 function stackToArray(stack) {
     if (!stack || stack.stackEmpty())
@@ -17,18 +17,81 @@ function draw(context, width, height) {
     context.fillStyle = "rgb(0, 0, 0)";
     context.font = "12px sans";
     context.textBaseline = "top";
-    var boxSize = 20,
-    padding = 5,
-    textPadding = 5,
-    pos = 0;
-    $.each(array, function(index, value) {
-        boxWidth = boxSize * new String(value).length;
-        context.strokeRect(pos + padding, padding, boxWidth,
-                           boxSize);
-        context.fillText(value, pos + padding + textPadding,
+    var padding = 5,
+        textPadding = 5;
+    $.each(boxes, function(_, box) {
+        context.strokeRect(box.pos + padding, padding, box.width,
+                           box.height);
+        context.fillText(box.content, box.pos + padding + textPadding,
                          padding + textPadding);
-        pos += boxWidth;
     });
+}
+
+function moveBoxes(distance, callback) {
+    $.each(boxes, function(_, box) {
+        box.goal = box.pos + distance;
+    });
+
+    var boxMover = setInterval(function() {
+        var finished = true;
+        $.each(boxes, function(_, box) {
+            if (typeof box.goal == "undefined")
+                return;
+
+            finished = false;
+            if (box.pos < box.goal)
+                box.pos++;
+            else if (box.pos > box.goal)
+                box.pos--;
+            else {
+                delete box.goal;
+                finished = true;
+            }
+        });
+
+        if (finished) {
+            clearInterval(boxMover);
+            callback();
+        }
+    }, 5);
+}
+
+function addBox(value, callback) {
+    var boxSize = 20,
+        boxContent = new String(value),
+        boxWidth = boxContent.length * boxSize;
+
+    moveBoxes(boxWidth, function() {
+        boxes.push({
+            pos: 0,
+            width: boxWidth,
+            height: boxSize,
+            content: boxContent
+        });
+        callback();
+    });
+}
+
+function removeBox(callback) {
+    if (boxes.length == 0) {
+        callback();
+        return;
+    }
+
+    var topBox = boxes.pop();
+    moveBoxes(-1 * topBox.width, callback);
+}
+
+function operations() {
+    return $("div.operation input");
+}
+
+function disableOperations() {
+    operations().attr("disabled", "true");
+}
+
+function enableOperations() {
+    operations().removeAttr("disabled");
 }
 
 var dataStructures = (function() {
@@ -39,15 +102,18 @@ var dataStructures = (function() {
 
             $("#pushButton").click(function() {
                 var value = $("#elementInput").val();
-                if (value) {
-                    stack.push(value);
-                    array = stackToArray(stack);
-                }
+                if (!value)
+                    return;
+
+                stack.push(value);
+                disableOperations();
+                addBox(value, enableOperations);
             });
 
             $("#popButton").click(function() {
                 $("#elementLabel").text(stack.pop() || "");
-                array = stackToArray(stack);
+                disableOperations();
+                removeBox(enableOperations);
             });
 
             setInterval(createDrawFunction($("#canvas")[0], draw), 10);
