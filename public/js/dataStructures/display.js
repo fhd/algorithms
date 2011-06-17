@@ -1,3 +1,5 @@
+var array = [];
+
 function stackToArray(stack) {
     if (!stack || stack.stackEmpty())
         return [];
@@ -10,45 +12,45 @@ function stackToArray(stack) {
     return array;
 }
 
-var array = [],
-    dataStructures = (function() {
-        return {
-            init: function(stack) {
-                if (typeof currentAlgorithmFile != "undefined")
-                    prettyPrint(); // Prettify
+function draw(context, width, height) {
+    context.clearRect(0, 0, width, height);
+    context.fillStyle = "rgb(0, 0, 0)";
+    context.font = "12px sans";
+    context.textBaseline = "top";
+    var boxSize = 20,
+    padding = 5,
+    textPadding = 5,
+    pos = 0;
+    $.each(array, function(index, value) {
+        boxWidth = boxSize * new String(value).length;
+        context.strokeRect(pos + padding, padding, boxWidth,
+                           boxSize);
+        context.fillText(value, pos + padding + textPadding,
+                         padding + textPadding);
+        pos += boxWidth;
+    });
+}
 
-                $("#pushButton").click(function() {
-                    var value = $("#elementInput").val();
-                    if (value) {
-                        stack.push(value);
-                        array = stackToArray(stack);
-                    }
-                });
+var dataStructures = (function() {
+    return {
+        init: function(stack) {
+            if (typeof currentAlgorithmFile != "undefined")
+                prettyPrint(); // Prettify
 
-                $("#popButton").click(function() {
-                    $("#elementLabel").text(stack.pop() || "");
+            $("#pushButton").click(function() {
+                var value = $("#elementInput").val();
+                if (value) {
+                    stack.push(value);
                     array = stackToArray(stack);
-                });
-
-                function draw(context, width, height) {
-                    context.clearRect(0, 0, width, height);
-                    context.fillStyle = "rgb(0, 0, 0)";
-                    context.font = "12px sans";
-                    context.textBaseline = "top";
-                    var boxSize = 20,
-                    padding = 5,
-                    textPadding = 5,
-                    pos = 0;
-                    $.each(array, function(index, value) {
-                        boxWidth = boxSize * new String(value).length;
-                        context.strokeRect(pos + padding, padding, boxWidth,
-                                           boxSize);
-                        context.fillText(value, pos + padding + textPadding,
-                                         padding + textPadding);
-                        pos += boxWidth;
-                    });
                 }
-                setInterval(createDrawFunction($("#canvas")[0], draw), 10);
-            }
-        };
-    })();
+            });
+
+            $("#popButton").click(function() {
+                $("#elementLabel").text(stack.pop() || "");
+                array = stackToArray(stack);
+            });
+
+            setInterval(createDrawFunction($("#canvas")[0], draw), 10);
+        }
+    };
+})();

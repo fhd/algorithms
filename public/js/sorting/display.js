@@ -11,30 +11,18 @@ Array.prototype.shuffle = function() {
     return this;
 };
 
-var Painter = (function () {
-    var Painter = {}, width, height, context;
-
-    Painter.init = function(canvas) {
-        width = canvas.width;
-        height = canvas.height;
-        context = canvas.getContext("2d");
-    };
-
-    Painter.draw = function() {
-        context.clearRect(0, 0, width, height);
-        context.fillStyle = "rgb(0, 0, 0)";
-        context.font = "12px sans";
-        context.textBaseline = "top";
-        var barWidth = 5;
-        $.each(array, function(index, value) {
-            context.fillRect(index * barWidth * 2 + barWidth,
-                             ((array.length + 1) - value) * barWidth,
-                             barWidth, barWidth * value);
-        });
-    };
-
-    return Painter;
-})();
+function draw(context, width, height) {
+    context.clearRect(0, 0, width, height);
+    context.fillStyle = "rgb(0, 0, 0)";
+    context.font = "12px sans";
+    context.textBaseline = "top";
+    var barWidth = 5;
+    $.each(array, function(index, value) {
+        context.fillRect(index * barWidth * 2 + barWidth,
+                         ((array.length + 1) - value) * barWidth,
+                         barWidth, barWidth * value);
+    });
+};
 
 var sorting = (function() {
     return {
@@ -64,8 +52,7 @@ var sorting = (function() {
                     });
                 });
 
-                Painter.init($("#canvas")[0]);
-                setInterval(Painter.draw, 10);
+                setInterval(createDrawFunction($("#canvas")[0], draw), 10);
             }
         }
     };
