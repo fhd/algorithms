@@ -20,7 +20,7 @@ test("init", function() {
 
     var oldCreateDrawFunction = createDrawFunction,
         expectedDrawFunction = function() {};
-    createDrawFunction function() {
+    createDrawFunction = function() {
         return expectedDrawFunction;
     };
 

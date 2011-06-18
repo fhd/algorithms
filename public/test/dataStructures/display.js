@@ -1,16 +1,9 @@
 module("dataStructures/display", {
     setup: function() {
-        this.mockCanvas = {
-            width: 100,
-            height: 100,
-            getContext: function() {
-                return {
-                    clearRect: function() {},
-                    strokeRect: function() {},
-                    fillText: function() {}
-                };
-            }
-        };
+        $("body").append($("<canvas/>").attr("id", "canvas"));
+    },
+    teardown: function() {
+        $("#canvas").remove();
     }
 });
 
@@ -62,53 +55,42 @@ test("stackToArrayWithAnEmptyStack", function() {
 });
 
 test("push", function() {
-    expect(1);
-    var stack = new Stack();
-
-    var pushFunction;
-    $ = function(element) {
-        if (element == "#canvas")
-            return [this.mockCanvas];
-        else
-            return {
-                click: function(f) {
-                    if (element == "#pushButton")
-                        pushFunction = f;
-                },
-                val: function() {
-                    return "5";
-                }
-            };
-    }
+    expect(2);
+    var stack = new Stack(),
+        pushButton = $("<input/>").attr("type", "button")
+            .attr("id", "pushButton"),
+        elementInput = $("<input/>").attr("type", "text")
+            .attr("id", "elementInput").val(5);
+    $("body").append(pushButton).append(elementInput);
     dataStructures.init(stack);
-    pushFunction();
-    deepEqual(array, ["5"]);
+    pushButton.click();
+    stop();
+    setTimeout(function() {
+        start();
+        equal(boxes.length, 1);
+        equal(boxes[0].content, "5");
+        pushButton.remove();
+        elementInput.remove();
+    }, 100);
 });
 
 test("pop", function() {
     expect(2);
-    var stack = new Stack();
-    stack.pop = function(element) {
-        return 5;
-    };
-
-    var popFunction, maxLabelText;
-    $ = function(element) {
-        if (element == "#canvas")
-            return [this.mockCanvas];
-        else
-            return {
-                click: function(f) {
-                    if (element == "#popButton")
-                        popFunction = f;
-                },
-                text: function(s) {
-                    labelText = s;
-                }
-            };
-    }
+    var stack = new Stack(),
+        popButton = $("<input/>").attr("type", "button")
+            .attr("id", "popButton"),
+        elementLabel = $("<label/>").attr("id", "elementLabel");
+    stack.push(5);
+    $("body").append(canvas).append(popButton).append(elementLabel);
     dataStructures.init(stack);
-    popFunction();
-    deepEqual(array, []);
-    equal(labelText, "5");
+    boxes = [{content: "5"}];
+    popButton.click();
+    equal(elementLabel.text(), "5");
+    stop();
+    setTimeout(function() {
+        start();
+        deepEqual(boxes, []);
+        popButton.remove();
+        elementLabel.remove();
+    }, 100);
 });
