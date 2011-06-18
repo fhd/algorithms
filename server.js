@@ -44,7 +44,7 @@ var categories = {
                 name: "Stack",
                 description: "A simple data structure that stores elements as "
                     + "on a physical stack: The first element inserted is the "
-                    + "last to be extracted (FIFO)."
+                    + "last to be extracted (FILO)."
             }
         }
     }
