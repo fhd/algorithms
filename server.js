@@ -104,4 +104,4 @@ app.get("/:algorithm", function(req, res) {
         res.send(404);
 });
 
-app.listen(9280);
+app.listen(10605);
