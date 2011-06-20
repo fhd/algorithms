@@ -45,6 +45,12 @@ var categories = {
                 description: "A simple data structure that stores elements as "
                     + "on a physical stack: The first element inserted is the "
                     + "last to be extracted (FILO)."
+            },
+            queue: {
+                name: "Queue",
+                description: "A simple data structure that stores elements as "
+                    + "on a physical queue: The first element inserted is the "
+                    + "first to be extracted (FIFO)."
             }
         }
     }

@@ -1,17 +1,5 @@
 var boxes = [];
 
-function stackToArray(stack) {
-    if (!stack || stack.stackEmpty())
-        return [];
-
-    var array = [];
-    for (var e, i = 0; e = stack.pop();)
-        array[i++] = e;
-    for (var i = array.length - 1; i >= 0; i--)
-        stack.push(array[i]);
-    return array;
-}
-
 function draw(context, width, height) {
     context.clearRect(0, 0, width, height);
     context.fillStyle = "rgb(0, 0, 0)";
@@ -56,30 +44,43 @@ function moveBoxes(distance, callback) {
     }, 5);
 }
 
-function addBox(value, callback) {
+function addBox(index, value, callback) {
     var boxSize = 20,
         boxContent = new String(value),
         boxWidth = boxContent.length * boxSize;
 
-    moveBoxes(boxWidth, function() {
-        boxes.push({
-            pos: 0,
+    function insertFunction() {
+        var pos;
+        if (index == 0)
+            pos = 0;
+        else
+            pos = boxes[index - 1].pos + boxes[index - 1].width;
+        boxes.splice(index, 0, {
+            pos: pos,
             width: boxWidth,
             height: boxSize,
             content: boxContent
         });
         callback();
-    });
+    }
+
+    if (index == 0)
+        moveBoxes(boxWidth, insertFunction);
+    else
+        insertFunction();
 }
 
-function removeBox(callback) {
+function removeBox(index, callback) {
     if (boxes.length == 0) {
         callback();
         return;
     }
 
-    var topBox = boxes.pop();
-    moveBoxes(-1 * topBox.width, callback);
+    var removedBox = boxes.splice(index, 1)[0];
+    if (index == 0)
+        moveBoxes(-1 * removedBox.width, callback);
+    else
+        callback();
 }
 
 function operations() {
@@ -94,27 +95,80 @@ function enableOperations() {
     operations().removeAttr("disabled");
 }
 
+function createStackOperations(stack) {
+    var pushInput = $("<input/>").attr("type", "text")
+            .attr("id", "pushInput").attr("size", "3"),
+        pushButton = $("<input/>").attr("type", "button")
+            .attr("id", "pushButton").attr("value", "Push"),
+        popButton = $("<input/>").attr("type", "button")
+            .attr("id", "popButton").attr("value", "Pop"),
+        popOutput = $("<label/>").attr("id", "popOutput"),
+        pushOperation = $("<div/>").attr("class", "operation")
+            .append(pushInput).append(pushButton),
+        popOperation = $("<div/>").attr("class", "operation")
+            .append(popButton).append(popOutput);
+
+    $("#operations").append(pushOperation).append(popOperation);
+
+    pushButton.click(function() {
+        var value = pushInput.val();
+        if (!value)
+            return;
+
+        stack.push(value);
+        disableOperations();
+        addBox(0, value, enableOperations);
+    });
+
+    popButton.click(function() {
+        popOutput.text(stack.pop() || "");
+        disableOperations();
+        removeBox(0, enableOperations);
+    });
+}
+
+function createQueueOperations(queue) {
+    var enqueueInput = $("<input/>").attr("type", "text")
+            .attr("id", "enqueueInput").attr("size", "3"),
+        enqueueButton = $("<input/>").attr("type", "button")
+            .attr("id", "enqueueButton").attr("value", "Enqueue"),
+        dequeueButton = $("<input/>").attr("type", "button")
+            .attr("id", "dequeueButton").attr("value", "Dequeue"),
+        dequeueOutput = $("<label/>").attr("id", "dequeueOutput"),
+        enqueueOperation = $("<div/>").attr("class", "operation")
+            .append(enqueueInput).append(enqueueButton),
+        dequeueOperation = $("<div/>").attr("class", "operation")
+            .append(dequeueButton).append(dequeueOutput);
+
+    $("#operations").append(enqueueOperation).append(dequeueOperation);
+
+    enqueueButton.click(function() {
+        var value = enqueueInput.val();
+        if (!value)
+            return;
+
+        queue.enqueue(value);
+        disableOperations();
+        addBox(boxes.length, value, enableOperations);
+    });
+
+    dequeueButton.click(function() {
+        dequeueOutput.text(queue.dequeue() || "");
+        disableOperations();
+        removeBox(0, enableOperations);
+    });
+}
+
 var dataStructures = (function() {
     return {
-        init: function(stack) {
+        init: function(ds) {
             if (typeof currentAlgorithmFile != "undefined")
                 prettyPrint(); // Prettify
 
-            $("#pushButton").click(function() {
-                var value = $("#elementInput").val();
-                if (!value)
-                    return;
-
-                stack.push(value);
-                disableOperations();
-                addBox(value, enableOperations);
-            });
-
-            $("#popButton").click(function() {
-                $("#elementLabel").text(stack.pop() || "");
-                disableOperations();
-                removeBox(enableOperations);
-            });
+            if (ds instanceof Stack)
+                createStackOperations(ds);
+            else if (ds instanceof Queue)
+                createQueueOperations(ds);
 
             setInterval(createDrawFunction($("#canvas")[0], draw), 10);
         }
