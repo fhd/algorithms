@@ -51,6 +51,11 @@ var categories = {
                 description: "A simple data structure that stores elements as "
                     + "on a physical queue: The first element inserted is the "
                     + "first to be extracted (FIFO)."
+            },
+            linkedList: {
+                name: "Linked List",
+                description: "A data structure that stores a dynamic number of "
+                      "elements."
             }
         }
     }

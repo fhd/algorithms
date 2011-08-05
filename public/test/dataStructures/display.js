@@ -146,6 +146,62 @@ test("initQueue", function() {
     removeBox = oldRemoveBox;
 });
 
+test("initLinkedList", function() {
+    expect(11);
+
+    var operations = $("<div/>").attr("id", "operations");
+    $("body").append(operations);
+
+    dataStructures.init(new LinkedList());
+    var insertButton = $("#insertButton"),
+        deleteButton = $("#deleteButton");
+    ok(insertButton.length,
+       "A button for the insert operation should be created.");
+    ok(deleteButton.length,
+       "A button for the delete operation should be created.");
+
+    var oldAddBox = addBox,
+        oldRemoveBox = removeBox,
+        boxAddedIndex, boxAddedValue, boxRemovedIndex;
+    boxes.length = 0;
+    addBox = function(index, value, callback) {
+        boxAddedIndex = index;
+        boxAddedValue = value;
+        boxes.length++;
+        callback();
+    };
+    removeBox = function(index, callback) {
+        boxRemovedIndex = index;
+        boxes.length--;
+        callback();
+    };
+
+    function testInsert(value, index) {
+        $("#insertInput").val(value);
+        insertButton.click();
+        equal(boxAddedIndex, index);
+        equal(boxAddedValue, value);
+    }
+
+    function testDelete(value, index) {
+        $("#deleteInput").val(value);
+        deleteButton.click()
+        equal(boxRemovedIndex, index);
+    }
+
+    testInsert("5", 0);
+    testInsert("6", 1);
+    testInsert("7", 2);
+
+    testDelete("6", 1);
+    testDelete("5", 0);
+    testDelete("7", 0);
+
+    operations.remove();
+    addBox = oldAddBox;
+    removeBox = oldRemoveBox;
+});
+
 test("addBox", function() {
     expect(2);
     dataStructures.init();

@@ -15,14 +15,16 @@ function draw(context, width, height) {
     });
 }
 
-function moveBoxes(distance, callback) {
-    $.each(boxes, function(_, box) {
+function moveBoxes(distance, startIndex, callback) {
+    var boxesToMove = boxes.slice(startIndex);
+
+    $.each(boxesToMove, function(_, box) {
         box.goal = box.pos + distance;
     });
 
     var boxMover = setInterval(function() {
         var finished = true;
-        $.each(boxes, function(_, box) {
+        $.each(boxesToMove, function(_, box) {
             if (typeof box.goal == "undefined")
                 return;
 
@@ -65,7 +67,7 @@ function addBox(index, value, callback) {
     }
 
     if (index == 0)
-        moveBoxes(boxWidth, insertFunction);
+        moveBoxes(boxWidth, 0, insertFunction);
     else
         insertFunction();
 }
@@ -77,8 +79,8 @@ function removeBox(index, callback) {
     }
 
     var removedBox = boxes.splice(index, 1)[0];
-    if (index == 0)
-        moveBoxes(-1 * removedBox.width, callback);
+    if (index < boxes.length)
+        moveBoxes(-1 * removedBox.width, index, callback);
     else
         callback();
 }
@@ -159,6 +161,45 @@ function createQueueOperations(queue) {
     });
 }
 
+function createLinkedListOperations(linkedList) {
+    var insertInput = $("<input/>").attr("type", "text")
+            .attr("id", "insertInput").attr("size", "3"),
+        insertButton = $("<input/>").attr("type", "button")
+            .attr("id", "insertButton").attr("value", "Insert"),
+        deleteButton = $("<input/>").attr("type", "button")
+            .attr("id", "deleteButton").attr("value", "Delete"),
+        deleteInput = $("<input/>").attr("type", "text")
+            .attr("id", "deleteInput").attr("size", "3"),
+        insertOperation = $("<div/>").attr("class", "operation")
+            .append(insertInput).append(insertButton),
+        deleteOperation = $("<div/>").attr("class", "operation")
+            .append(deleteInput).append(deleteButton);
+
+    $("#operations").append(insertOperation).append(deleteOperation);
+
+    insertButton.click(function() {
+        var value = insertInput.val();
+        if (!value)
+            return;
+
+        linkedList.insert({key: value});
+        disableOperations();
+        addBox(boxes.length, value, enableOperations);
+    });
+
+    deleteButton.click(function() {
+        var value = deleteInput.val();
+        if (!value || !linkedList.search(value))
+            return;
+
+        var index = linkedList.toArray().indexOf(value);
+
+        linkedList.delete(linkedList.search(value));
+        disableOperations();
+        removeBox(index, enableOperations);
+    });
+}
+
 var dataStructures = (function() {
     return {
         init: function(ds) {
@@ -169,6 +210,8 @@ var dataStructures = (function() {
                 createStackOperations(ds);
             else if (ds instanceof Queue)
                 createQueueOperations(ds);
+            else if (ds instanceof LinkedList)
+                createLinkedListOperations(ds);
 
             setInterval(createDrawFunction($("#canvas")[0], draw), 10);
         }

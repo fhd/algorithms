@@ -1,6 +1,7 @@
 script(src="js/dataStructures/display.js")
 script(src="js/dataStructures/stack.js")
 script(src="js/dataStructures/queue.js")
+script(src="js/dataStructures/linkedList.js")
 
 script
     var currentAlgorithmFile = "!{currentAlgorithm.file}";
@@ -10,6 +11,8 @@ script
             ds = new Stack();
         else if (currentAlgorithmFile == "queue.js")
             ds = new Queue();
+        else if (currentAlgorithmFile == "linkedList.js")
+            ds = new LinkedList();
         dataStructures.init(ds);
     });
 
