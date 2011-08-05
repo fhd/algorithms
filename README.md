@@ -19,4 +19,4 @@ Now you can run the server like this:
 
     node server.js
 
-And finally, point your browser to: [http://localhost:9280](http://localhost:9280)
+And finally, point your browser to: [http://localhost:10605](http://localhost:10605)
