@@ -149,13 +149,13 @@ function createQueueOperations(queue) {
 
         queue.enqueue(value);
         disableOperations();
-        addBox(boxes.length, value, enableOperations);
+        addBox(0, value, enableOperations);
     });
 
     dequeueButton.click(function() {
         dequeueOutput.text(queue.dequeue() || "");
         disableOperations();
-        removeBox(0, enableOperations);
+        removeBox(boxes.length - 1, enableOperations);
     });
 }
 

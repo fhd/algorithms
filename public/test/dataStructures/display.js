@@ -55,13 +55,16 @@ test("initStack", function() {
     var oldAddBox = addBox,
         oldRemoveBox = removeBox,
         boxAddedIndex, boxAddedValue, boxRemovedIndex;
+    boxes.length = 0;
     addBox = function(index, value, callback) {
         boxAddedIndex = index;
         boxAddedValue = value;
+        boxes.length++;
         callback();
     };
     removeBox = function(index, callback) {
         boxRemovedIndex = index;
+        boxes.length--;
         callback();
     };
 
@@ -110,7 +113,7 @@ test("initQueue", function() {
     addBox = function(index, value, callback) {
         boxAddedIndex = index;
         boxAddedValue = value;
-        boxes.length++; 
+        boxes.length++;
         callback();
     };
     removeBox = function(index, callback) {
@@ -133,9 +136,9 @@ test("initQueue", function() {
     }
 
     testEnqueue("5", 0);
-    testEnqueue("6", 1);
+    testEnqueue("6", 0);
 
-    testDequeue("5", 0);
+    testDequeue("5", 1);
     testDequeue("6", 0);
 
     operations.remove();
