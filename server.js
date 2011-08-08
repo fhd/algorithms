@@ -55,7 +55,7 @@ var categories = {
             linkedList: {
                 name: "Linked List",
                 description: "A data structure that stores a dynamic number of "
-                      "elements."
+                    + "elements."
             }
         }
     }
