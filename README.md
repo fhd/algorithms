@@ -13,7 +13,7 @@ Running
 To run Algorithms, first get [node.js](http://nodejs.org/) and
 [npm](http://npmjs.org/) and then execute the following:
 
-    npm install express jade jquery
+    npm install express jade
 
 Now you can run the server like this:
 

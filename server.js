@@ -61,16 +61,19 @@ var categories = {
     }
 }
 
-var $ = require("jquery"), algorithms = {};
+var algorithms = {};
 
-$.each(categories, function (categoryKey, category) {
-    $.each(category.algorithms, function(algorithmKey, algorithm) {
+Object.keys(categories).forEach(function (categoryKey) {
+    var category = categories[categoryKey];
+    Object.keys(category.algorithms).forEach(function(algorithmKey) {
+        var algorithm = category.algorithms[algorithmKey];
         algorithm.category = categoryKey;
         algorithms[algorithmKey] = algorithm;
     });
 });
 
-$.each(algorithms, function (key, value) {
+Object.keys(algorithms).forEach(function (key) {
+    var value = algorithms[key];
     value.file = key + ".js";
     value.functionName = key;
     value.url = "/" + key;
