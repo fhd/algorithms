@@ -1,7 +1,6 @@
 module("dataStructures/queue");
 
-test("enqueue,dequeue", function() {
-    expect(3);
+test("enqueue,dequeue", 3, function() {
     var queue = new Queue();
     queue.enqueue(1);
     queue.enqueue(2);

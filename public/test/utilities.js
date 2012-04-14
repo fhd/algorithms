@@ -1,8 +1,6 @@
 module("utilities");
 
-test("createDrawFunction", function() {
-    expect(1);
-
+test("createDrawFunction", 1, function() {
     var mockContextUsed = false,
         mockCanvas = {
             width: 100,

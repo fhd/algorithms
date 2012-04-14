@@ -1,7 +1,6 @@
 module("dataStructures/linkedList");
 
-test("insert, search", function() {
-    expect(2);
+test("insert, search", 2, function() {
     var list = new LinkedList(),
         first = {key: 1},
         second = {key: 2};
@@ -11,8 +10,7 @@ test("insert, search", function() {
     equal(list.search(2).key, second.key);
 });
 
-test("delete", function() {
-    expect(2);
+test("delete", 2, function() {
     var list = new LinkedList();
     list.insert({key: 1});
     list.insert({key: 2});
@@ -22,8 +20,7 @@ test("delete", function() {
     deepEqual(list.toArray(), []);
 });
 
-test("toArray", function() {
-    expect(1);
+test("toArray", 1, function() {
     var list = new LinkedList();
     list.insert({key: 1});
     list.insert({key: 2});

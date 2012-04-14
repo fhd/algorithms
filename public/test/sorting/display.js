@@ -1,16 +1,13 @@
 module("sorting/display");
 
-test("Array.shuffle", function() {
-    expect(1);
+test("Array.shuffle", 1, function() {
     var array = [1, 2, 3, 4, 5];
     var shuffledArray = array.slice();
     shuffledArray.shuffle();
     notDeepEqual(array, shuffledArray);
 });
 
-test("init", function() {
-    expect(2);
-
+test("init", 2, function() {
     currentAlgorithmFile = "";
 
     var prettyPrintCalled = false;

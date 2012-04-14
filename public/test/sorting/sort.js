@@ -27,8 +27,7 @@ $.each([insertionSort, mergeSort, bubbleSort, heapsort, quicksort,
                return true;
            };
 
-           test(algorithm.name, function() {
-               expect(4);
+           test(algorithm.name, 4, function() {
                var array = [7, 3, 5, 9, 2, 1, 6, 10, 4, 8],
                    oddNumberedArray = [3, 2, 1];
                $.each([array, oddNumberedArray], function(_, array) {

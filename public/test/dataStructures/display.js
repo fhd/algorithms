@@ -7,9 +7,7 @@ module("dataStructures/display", {
     }
 });
 
-test("init", function() {
-    expect(2);
-
+test("init", 2, function() {
     currentAlgorithmFile = "";
 
     var prettyPrintCalled = false;
@@ -38,9 +36,7 @@ test("init", function() {
     setInterval = oldSetInterval;
 });
 
-test("initStack", function() {
-    expect(10);
-
+test("initStack", 10, function() {
     var operations = $("<div/>").attr("id", "operations");
     $("body").append(operations);
 
@@ -92,9 +88,7 @@ test("initStack", function() {
     removeBox = oldRemoveBox;
 });
 
-test("initQueue", function() {
-    expect(10);
-
+test("initQueue", 10, function() {
     var operations = $("<div/>").attr("id", "operations");
     $("body").append(operations);
 
@@ -146,9 +140,7 @@ test("initQueue", function() {
     removeBox = oldRemoveBox;
 });
 
-test("initLinkedList", function() {
-    expect(11);
-
+test("initLinkedList", 11, function() {
     var operations = $("<div/>").attr("id", "operations");
     $("body").append(operations);
 
@@ -202,8 +194,7 @@ test("initLinkedList", function() {
     removeBox = oldRemoveBox;
 });
 
-test("addBox", function() {
-    expect(2);
+test("addBox", 2, function() {
     dataStructures.init();
     addBox(0, "5", function() {});
     stop();
@@ -214,8 +205,7 @@ test("addBox", function() {
     }, 100);
 });
 
-test("removeBox", function() {
-    expect(1);
+test("removeBox", 1, function() {
     dataStructures.init();
     boxes = [{content: "5"}];
     removeBox(0, function() {});

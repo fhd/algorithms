@@ -1,14 +1,12 @@
 module("sorting/worker");
 
-test("sleep", function() {
-    expect(1);
+test("sleep", 1, function() {
     var now = new Date().getTime();
     sleep(1);
     ok(new Date().getTime() > now, "1 ms should have passed.");
 });
 
-test("update", function() {
-    expect(2);
+test("update", 2, function() {
     var oldSleep = sleep,
         oldPostMessage = postMessage,
         slept, posted;
@@ -28,8 +26,7 @@ test("update", function() {
     postMessage = oldPostMessage;
 });
 
-test("makeNumeric", function() {
-    expect(1);
+test("makeNumeric", 1, function() {
     var array = ["1", "2", "3"];
     makeNumeric(array);
     deepEqual(array, [1, 2, 3]);
