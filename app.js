@@ -123,7 +123,7 @@ function startServer() {
             res.send(404);
     });
 
-    app.listen(10605);
+    app.listen(3000);
 }
 
 startServer();
