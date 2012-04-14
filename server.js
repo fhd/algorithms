@@ -59,63 +59,71 @@ var categories = {
             }
         }
     }
+},
+    algorithms = createAlgorithms(categories);
+
+function createAlgorithms(categories) {
+    var algorithms = {};
+
+    Object.keys(categories).forEach(function (categoryKey) {
+        var category = categories[categoryKey];
+        Object.keys(category.algorithms).forEach(function(algorithmKey) {
+            var algorithm = category.algorithms[algorithmKey];
+            algorithm.category = categoryKey;
+            algorithms[algorithmKey] = algorithm;
+        });
+    });
+
+    Object.keys(algorithms).forEach(function (key) {
+        var value = algorithms[key];
+        value.file = key + ".js";
+        value.functionName = key;
+        value.url = "/" + key;
+    });
+
+    return algorithms;
 }
 
-var algorithms = {};
+function startServer() {
+    var express = require("express"),
+        app = module.exports = express.createServer(),
+        fs = require("fs");
 
-Object.keys(categories).forEach(function (categoryKey) {
-    var category = categories[categoryKey];
-    Object.keys(category.algorithms).forEach(function(algorithmKey) {
-        var algorithm = category.algorithms[algorithmKey];
-        algorithm.category = categoryKey;
-        algorithms[algorithmKey] = algorithm;
+    app.configure(function() {
+        app.set("views", __dirname + "/views");
+        app.set("view engine", "jade");
+        app.use(express.bodyParser());
+        app.use(express.methodOverride());
+        app.use(app.router);
+        app.use(express.static(__dirname + "/public"));
     });
-});
 
-Object.keys(algorithms).forEach(function (key) {
-    var value = algorithms[key];
-    value.file = key + ".js";
-    value.functionName = key;
-    value.url = "/" + key;
-});
+    app.configure("development", function() {
+        app.use(express.errorHandler({dumpExceptions: true, showStack: true}));
+    });
 
-var express = require("express"),
-    app = module.exports = express.createServer();
+    app.configure("production", function() {
+        app.use(express.errorHandler());
+    });
 
-app.configure(function() {
-    app.set("views", __dirname + "/views");
-    app.set("view engine", "jade");
-    app.use(express.bodyParser());
-    app.use(express.methodOverride());
-    app.use(app.router);
-    app.use(express.static(__dirname + "/public"));
-});
+    app.get("/", function(req, res) {
+        res.render("index", {"categories": categories});
+    });
 
-app.configure("development", function() {
-    app.use(express.errorHandler({dumpExceptions: true, showStack: true}));
-});
+    app.get("/:algorithm", function(req, res) {
+        var algorithm = algorithms[req.params.algorithm];
+        if (algorithm) {
+            algorithm.code = fs.readFileSync("public/js/" + algorithm.category
+                                             + "/" + algorithm.file);
+            res.render(algorithm.category, {
+                currentAlgorithm: algorithm,
+                "categories": categories
+            });
+        } else
+            res.send(404);
+    });
 
-app.configure("production", function() {
-    app.use(express.errorHandler());
-});
+    app.listen(10605);
+}
 
-app.get("/", function(req, res) {
-    res.render("index", {"categories": categories});
-});
-
-var fs = require("fs");
-
-app.get("/:algorithm", function(req, res) {
-    var algorithm = algorithms[req.params.algorithm];
-    if (algorithm) {
-        algorithm.code = fs.readFileSync("public/js/" + algorithm.category
-                                         + "/" + algorithm.file);
-        res.render(algorithm.category, {
-            currentAlgorithm: algorithm,
-            "categories": categories
-        });
-    } else
-        res.send(404);
-});
-
-app.listen(10605);
+startServer();
