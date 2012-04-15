@@ -1,21 +1,14 @@
 module("utilities");
 
-test("createDrawFunction", function() {
-    var context = {
-            fillRect: function() {}
-        },
+test("createDrawFunction", 1, function() {
+    var context = {},
         canvas = {
-            getContext: function() {
-                return context;
-            }
+            getContext: sinon.stub().returns(context)
         },
-        mock = sinon.mock(context);
+        f = sinon.spy();
 
-    mock.expects("fillRect").once();
+    createDrawFunction(canvas, f)();
 
-    createDrawFunction(canvas, function(context, width, height) {
-        context.fillRect();
-    })();
-
-    mock.verify();
+    ok(f.calledWith(context),
+       "The draw function should use the context of the supplied canvas.");
 });
