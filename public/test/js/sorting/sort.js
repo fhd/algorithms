@@ -1,43 +1,46 @@
 module("sorting/sort", {
     setup: function() {
-        temp = update;
-        update = function() {};
+        sinon.stub(window, "update");
     },
     teardown: function() {
-        update = temp;
+        update.restore();
     }
 });
 
-$.each([insertionSort, mergeSort, bubbleSort, heapsort, quicksort,
-        randomizedQuicksort], function(_, algorithm) {
-           Array.prototype.isSorted = function() {
-               for (var i = 0; i < this.length - 1; i++)
-                   if (this[i] >= this[i + 1])
-                       return false;
-               return true;
-           };
+function isSorted(array) {
+    var i;
+    for (i = 0; i < array.length - 1; i++)
+        if (array[i] >= array[i + 1])
+            return false;
+    return true;
+};
 
-           Array.prototype.containsAll = function(array) {
-               if (this.length < array.length)
-                   return false;
+function containsAll(array1, array2) {
+    var i;
 
-               for (var i = 0; i < array.length; i++)
-                   if (this.indexOf(array[i]) == -1)
-                       return false;
-               return true;
-           };
+    if (array1.length < array2.length)
+        return false;
 
-           test(algorithm.name, 4, function() {
-               var array = [7, 3, 5, 9, 2, 1, 6, 10, 4, 8],
-                   oddNumberedArray = [3, 2, 1];
-               $.each([array, oddNumberedArray], function(_, array) {
-                       var originalArray = array.slice(0);
-                       algorithm(array);
-                       ok(array.isSorted(),
-                          "The array [" + array + "] should be sorted.");
-                       ok(array.containsAll(originalArray),
-                          "The array [" + array + "] should contain all elements from "
-                          + "the original array [" + originalArray + "].");
-                   });
-           });
-       });
+    for (i = 0; i < array2.length; i++)
+        if (array1.indexOf(array2[i]) == -1)
+            return false;
+    return true;
+};
+
+$([insertionSort, mergeSort, bubbleSort, heapsort, quicksort,
+   randomizedQuicksort])
+    .each(function(_, algorithm) {
+        test(algorithm.name, 4, function() {
+            var array = [7, 3, 5, 9, 2, 1, 6, 10, 4, 8],
+                oddNumberedArray = [3, 2, 1];
+            $.each([array, oddNumberedArray], function(_, array) {
+                var originalArray = array.slice(0);
+                algorithm(array);
+                ok(isSorted(array),
+                   "The array [" + array + "] should be sorted.");
+                ok(containsAll(array, originalArray),
+                   "The array [" + array + "] should contain all elements from "
+                   + "the original array [" + originalArray + "].");
+            });
+        });
+    });
