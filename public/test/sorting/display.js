@@ -1,37 +1,26 @@
 module("sorting/display");
 
 test("Array.shuffle", 1, function() {
-    var array = [1, 2, 3, 4, 5];
-    var shuffledArray = array.slice();
+    var array = [1, 2, 3, 4, 5],
+        shuffledArray = array.slice();
     shuffledArray.shuffle();
     notDeepEqual(array, shuffledArray);
 });
 
 test("init", 2, function() {
+    var f = function() {};
+
     currentAlgorithmFile = "";
-
-    var prettyPrintCalled = false;
-    prettyPrint = function() {
-        prettyPrintCalled = true;
-    };
-
-    var oldCreateDrawFunction = createDrawFunction,
-        expectedDrawFunction = function() {};
-    createDrawFunction = function() {
-        return expectedDrawFunction;
-    };
-
-    var oldSetInterval = setInterval, drawFunction;
-    setInterval = function(f) {
-        drawFunction = f;
-    };
+    prettyPrint = sinon.spy();
+    sinon.stub(window, "createDrawFunction");
+    createDrawFunction.returns(f);
+    sinon.stub(window, "setInterval");
 
     sorting.init();
 
-    ok(prettyPrintCalled, "Google Prettify should be activated.");
-    equal(drawFunction, expectedDrawFunction,
-          "The draw function interval should be set.");
+    ok(prettyPrint.called, "Google Prettify should be activated.");
+    ok(setInterval.calledWith(f), "The draw function interval should be set.");
 
-    createDrawFunction = oldCreateDrawFunction;
-    setInterval = oldSetInterval;
+    createDrawFunction.restore();
+    setInterval.restore();
 });
