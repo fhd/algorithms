@@ -9,3 +9,4 @@
  - Use the module pattern
  - Use Sinon.JS for mocks, stubs and spies in all tests
  - Remove unnecessary tests, add missing tests
+ - Use dash instead of camel case for multi word JS files
