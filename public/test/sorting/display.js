@@ -8,7 +8,7 @@ test("Array.shuffle", 1, function() {
 });
 
 test("init", 2, function() {
-    var f = function() {};
+    var f = testUtils.uniqueFunction();
 
     currentAlgorithmFile = "";
     prettyPrint = sinon.spy();

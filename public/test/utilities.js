@@ -1,7 +1,7 @@
 module("utilities");
 
 test("createDrawFunction", 1, function() {
-    var context = {},
+    var context = testUtils.uniqueObject(),
         canvas = {
             getContext: sinon.stub().returns(context)
         },
