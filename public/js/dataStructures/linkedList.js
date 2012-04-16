@@ -32,8 +32,8 @@ function LinkedList() {
      * It is not part of the original data structure.
      */
     this.toArray = function() {
-        var array = [];
-        var x = head;
+        var array = [],
+            x = head;
         while (x != null) {
             array.push(x.key);
             x = x.next;

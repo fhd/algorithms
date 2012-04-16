@@ -20,16 +20,18 @@ function maxHeapify(array, root) {
 }
 
 function buildMaxHeap(array) {
+    var i;
     array.heapSize = array.length;
-    for (var i = Math.round(array.length / 2); i >= 0; i--) {
+    for (i = Math.round(array.length / 2); i >= 0; i--) {
         maxHeapify(array, i);
         update(array);
     }
 }
 
 function heapsort(array) {
+    var i;
     buildMaxHeap(array);
-    for (var i = array.length - 1; i >= 1; i--) {
+    for (i = array.length - 1; i >= 1; i--) {
         exchange(array, 0, i);
         array.heapSize--;
         maxHeapify(array, 0);

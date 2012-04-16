@@ -9,15 +9,17 @@ function update(array) {
 }
 
 function makeNumeric(array) {
-    for (var i = 0; i < array.length; i++)
+    var i;
+    for (i = 0; i < array.length; i++)
         array[i] = parseInt(array[i]);
 }
 
 onmessage = function(event) {
-    var array = event.data.array;
+    var array = event.data.array,
+        algorithm;
     makeNumeric(array);
     importScripts(event.data.file);
-    var algorithm = eval(event.data.functionName);
+    algorithm = eval(event.data.functionName);
     algorithm(array);
     postMessage({"array": array, finished: true});
 }

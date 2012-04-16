@@ -5,7 +5,6 @@
  - Hash Map
  - Binary Tree
 - Clean up
- - Always declare vars at the beginning of a function
  - Use the module pattern
  - Use Sinon.JS for mocks, stubs and spies in all tests
  - Remove unnecessary tests, add missing tests

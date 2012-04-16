@@ -1,13 +1,28 @@
-var boxes = [];
+var boxes = [],
+    dataStructures = {
+        init: function(ds) {
+            if (typeof currentAlgorithmFile != "undefined")
+                prettyPrint(); // Prettify
+
+            if (ds instanceof Stack)
+                createStackOperations(ds);
+            else if (ds instanceof Queue)
+                createQueueOperations(ds);
+            else if (ds instanceof LinkedList)
+                createLinkedListOperations(ds);
+
+            setInterval(createDrawFunction($("#canvas")[0], draw), 10);
+        }
+    };
 
 function draw(context, width, height) {
     context.clearRect(0, 0, width, height);
     context.fillStyle = "rgb(0, 0, 0)";
     context.font = "12px sans";
     context.textBaseline = "top";
-    var padding = 5,
-        textPadding = 5;
     $.each(boxes, function(_, box) {
+        var padding = 5,
+            textPadding = 5;
         context.strokeRect(box.pos + padding, padding, box.width,
                            box.height);
         context.fillText(box.content, box.pos + padding + textPadding,
@@ -16,13 +31,14 @@ function draw(context, width, height) {
 }
 
 function moveBoxes(distance, startIndex, callback) {
-    var boxesToMove = boxes.slice(startIndex);
+    var boxesToMove = boxes.slice(startIndex),
+        boxMover;
 
     $.each(boxesToMove, function(_, box) {
         box.goal = box.pos + distance;
     });
 
-    var boxMover = setInterval(function() {
+    boxMover = setInterval(function() {
         var finished = true;
         $.each(boxesToMove, function(_, box) {
             if (typeof box.goal == "undefined")
@@ -73,12 +89,14 @@ function addBox(index, value, callback) {
 }
 
 function removeBox(index, callback) {
+    var removedBox;
+
     if (boxes.length == 0) {
         callback();
         return;
     }
 
-    var removedBox = boxes.splice(index, 1)[0];
+    removedBox = boxes.splice(index, 1)[0];
     if (index < boxes.length)
         moveBoxes(-1 * removedBox.width, index, callback);
     else
@@ -188,32 +206,16 @@ function createLinkedListOperations(linkedList) {
     });
 
     deleteButton.click(function() {
-        var value = deleteInput.val();
+        var value = deleteInput.val(),
+            index;
+
         if (!value || !linkedList.search(value))
             return;
 
-        var index = linkedList.toArray().indexOf(value);
+        index = linkedList.toArray().indexOf(value);
 
         linkedList.delete(linkedList.search(value));
         disableOperations();
         removeBox(index, enableOperations);
     });
 }
-
-var dataStructures = (function() {
-    return {
-        init: function(ds) {
-            if (typeof currentAlgorithmFile != "undefined")
-                prettyPrint(); // Prettify
-
-            if (ds instanceof Stack)
-                createStackOperations(ds);
-            else if (ds instanceof Queue)
-                createQueueOperations(ds);
-            else if (ds instanceof LinkedList)
-                createLinkedListOperations(ds);
-
-            setInterval(createDrawFunction($("#canvas")[0], draw), 10);
-        }
-    };
-})();
