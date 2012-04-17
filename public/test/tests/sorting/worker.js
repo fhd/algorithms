@@ -22,8 +22,24 @@ test("update", 2, function() {
     postMessage.restore();
 });
 
-test("makeNumeric", 1, function() {
-    var array = ["1", "2", "3"];
-    makeNumeric(array);
-    deepEqual(array, [1, 2, 3]);
+test("onmessage", 3, function() {
+    f = sinon.stub();
+    importScripts = sinon.stub();
+    sinon.stub(window, "postMessage");
+
+    onmessage({data: {
+        array: ["1", "2", "3"],
+        file: "f.js",
+        functionName: "f"
+    }});
+
+    ok(importScripts.calledWith("f.js"),
+       "The supplied JS file should be loaded.");
+    ok(f.calledWith([1, 2, 3]),
+       "The sort function should be called with the array.");
+    ok(postMessage.calledWith({array: [1, 2, 3], finished: true}),
+       "The worker should post a message with the result.");
+
+    f = importScripts = undefined;
+    postMessage.restore();
 });
