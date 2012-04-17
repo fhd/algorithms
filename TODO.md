@@ -1,7 +1,6 @@
 - Implement non-comparison sort algorithms (e.g. counting sort)
 - Implement selection problem alrogithms (randomized select and select)
 - Implement data structures
- - Linked List
+ - Linked List (variant with sentinels instead of the current one)
  - Hash Map
  - Binary Tree
-

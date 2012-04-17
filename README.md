@@ -10,13 +10,9 @@ This is still work in progress.
 Running
 -------
 
-To run Algorithms, first get [node.js](http://nodejs.org/) and
-[npm](http://npmjs.org/) and then execute the following:
+To run Algorithms, just get [node.js](http://nodejs.org/) and execute
+the following:
 
-    npm install express jade
+    node app
 
-Now you can run the server like this:
-
-    node server.js
-
-And finally, point your browser to: [http://localhost:10605](http://localhost:10605)
+Then point your browser to: [http://localhost:3000](http://localhost:3000).
