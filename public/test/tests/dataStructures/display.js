@@ -25,9 +25,48 @@ test("init", 2, function() {
     setInterval.restore();
 });
 
+test("addBox", 2, function() {
+    dataStructures.init();
+    addBox(0, "5", function() {});
+    stop();
+    setTimeout(function() {
+        start();
+        equal(boxes.length, 1);
+        equal(boxes[0].content, "5");
+    }, 100);
+});
+
+test("removeBox", 1, function() {
+    dataStructures.init();
+    boxes = [{content: "5"}];
+    removeBox(0, function() {});
+    stop();
+    setTimeout(function() {
+        start();
+        deepEqual(boxes, []);
+    }, 100);
+});
+
+module("dataStructures/display", {
+    setup: function() {
+        $("body").append($("<div/>").attr("id", "operations"));
+        boxes = [];
+        sinon.stub(window, "addBox", function() {
+            boxes.push({});
+        });
+        sinon.stub(window, "removeBox", function() {
+            boxes.pop();
+        });
+    },
+    teardown: function() {
+        addBox.restore();
+        removeBox.restore();
+        $("#operations").remove();
+    }
+});
+
 test("initStack", 8, function() {
-    var operations = $("<div/>").attr("id", "operations"),
-        pushButton, popButton;
+    var pushButton, popButton;
 
     function testPush(value) {
         $("#pushInput").val(value);
@@ -43,7 +82,6 @@ test("initStack", 8, function() {
         equal($("#popOutput").text(), value);
     }
 
-    $("body").append(operations);
     dataStructures.init(new Stack());
 
     pushButton = $("#pushButton");
@@ -54,30 +92,15 @@ test("initStack", 8, function() {
     ok(popButton.length,
        "A button for the pop operation should be created.");
 
-    boxes = [];
-    sinon.stub(window, "addBox", function() {
-        boxes.push({});
-    });
-    sinon.stub(window, "removeBox", function() {
-        boxes.pop();
-    });
-
     testPush("5");
     testPush("6");
 
     testPop("6");
     testPop("5");
-
-    operations.remove();
-    addBox.restore();
-    removeBox.restore();
 });
 
 test("initQueue", 8, function() {
-    var operations = $("<div/>").attr("id", "operations"),
-        enqueueButton, dequeueButton;
-
-    $("body").append(operations);
+    var enqueueButton, dequeueButton;
 
     function testEnqueue(value, index) {
         $("#enqueueInput").val(value);
@@ -103,28 +126,15 @@ test("initQueue", 8, function() {
     ok(dequeueButton.length,
        "A button for the dequeue operation should be created.");
 
-    boxes = [];
-    sinon.stub(window, "addBox", function() {
-        boxes.push({});
-    });
-    sinon.stub(window, "removeBox", function() {
-        boxes.pop();
-    });
-
     testEnqueue("5", 0);
     testEnqueue("6", 0);
 
     testDequeue("5", 1);
     testDequeue("6", 0);
-
-    operations.remove();
-    addBox.restore();
-    removeBox.restore();
 });
 
 test("initLinkedList", 8, function() {
-    var operations = $("<div/>").attr("id", "operations"),
-        insertButton, deleteButton;
+    var insertButton, deleteButton;
 
     function testInsert(value, index) {
         $("#insertInput").val(value);
@@ -140,7 +150,6 @@ test("initLinkedList", 8, function() {
            " should be removed.");
     }
 
-    $("body").append(operations);
     dataStructures.init(new LinkedList());
 
     insertButton = $("#insertButton");
@@ -151,14 +160,6 @@ test("initLinkedList", 8, function() {
     ok(deleteButton.length,
        "A button for the delete operation should be created.");
 
-    boxes = [];
-    sinon.stub(window, "addBox", function() {
-        boxes.push({});
-    });
-    sinon.stub(window, "removeBox", function() {
-        boxes.pop();
-    });
-
     testInsert("5", 0);
     testInsert("6", 1);
     testInsert("7", 2);
@@ -166,30 +167,4 @@ test("initLinkedList", 8, function() {
     testDelete("6", 1);
     testDelete("5", 0);
     testDelete("7", 0);
-
-    operations.remove();
-    addBox.restore();
-    removeBox.restore();
-});
-
-test("addBox", 2, function() {
-    dataStructures.init();
-    addBox(0, "5", function() {});
-    stop();
-    setTimeout(function() {
-        start();
-        equal(boxes.length, 1);
-        equal(boxes[0].content, "5");
-    }, 100);
-});
-
-test("removeBox", 1, function() {
-    dataStructures.init();
-    boxes = [{content: "5"}];
-    removeBox(0, function() {});
-    stop();
-    setTimeout(function() {
-        start();
-        deepEqual(boxes, []);
-    }, 100);
 });
