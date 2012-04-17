@@ -54,22 +54,19 @@ test("initStack", 8, function() {
     ok(popButton.length,
        "A button for the pop operation should be created.");
 
-    sinon.stub(window, "addBox");
-    addBox.callsArg(2);
-    sinon.stub(window, "removeBox");
-    removeBox.callsArg(1);
-
-    boxes.length = 0;
+    boxes = [];
+    sinon.stub(window, "addBox", function() {
+        boxes.push({});
+    });
+    sinon.stub(window, "removeBox", function() {
+        boxes.pop();
+    });
 
     testPush("5");
-    boxes.length++;
     testPush("6");
-    boxes.length++;
 
     testPop("6");
-    boxes.length--;
     testPop("5");
-    boxes.length--;
 
     operations.remove();
     addBox.restore();
@@ -106,22 +103,19 @@ test("initQueue", 8, function() {
     ok(dequeueButton.length,
        "A button for the dequeue operation should be created.");
 
-    sinon.stub(window, "addBox");
-    addBox.callsArg(2);
-    sinon.stub(window, "removeBox");
-    removeBox.callsArg(1);
-
-    boxes.length = 0;
+    boxes = [];
+    sinon.stub(window, "addBox", function() {
+        boxes.push({});
+    });
+    sinon.stub(window, "removeBox", function() {
+        boxes.pop();
+    });
 
     testEnqueue("5", 0);
-    boxes.length++;
     testEnqueue("6", 0);
-    boxes.length++;
 
     testDequeue("5", 1);
-    boxes.length--;
     testDequeue("6", 0);
-    boxes.length--;
 
     operations.remove();
     addBox.restore();
@@ -157,26 +151,21 @@ test("initLinkedList", 8, function() {
     ok(deleteButton.length,
        "A button for the delete operation should be created.");
 
-    sinon.stub(window, "addBox");
-    addBox.callsArg(2);
-    sinon.stub(window, "removeBox");
-    removeBox.callsArg(1);
-
-    boxes.length = 0;
+    boxes = [];
+    sinon.stub(window, "addBox", function() {
+        boxes.push({});
+    });
+    sinon.stub(window, "removeBox", function() {
+        boxes.pop();
+    });
 
     testInsert("5", 0);
-    boxes.length++;
     testInsert("6", 1);
-    boxes.length++;
     testInsert("7", 2);
-    boxes.length++;
 
     testDelete("6", 1);
-    boxes.length--;
     testDelete("5", 0);
-    boxes.length--;
     testDelete("7", 0);
-    boxes.length--;
 
     operations.remove();
     addBox.restore();
