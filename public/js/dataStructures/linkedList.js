@@ -1,5 +1,3 @@
-// TODO: Use sentinel variants of the functions
-
 function LinkedList() {
     var head = null;
 
