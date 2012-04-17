@@ -11,7 +11,7 @@ var boxes = [],
             else if (ds instanceof LinkedList)
                 createLinkedListOperations(ds);
 
-            setInterval(createDrawFunction($("#canvas")[0], draw), 10);
+            setInterval(utils.createDrawFunction($("#canvas")[0], draw), 10);
         }
     };
 

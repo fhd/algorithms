@@ -26,7 +26,8 @@ var array = [],
                     });
                 });
 
-                setInterval(createDrawFunction($("#canvas")[0], draw), 10);
+                setInterval(utils.createDrawFunction($("#canvas")[0], draw),
+                            10);
             }
         }
     },

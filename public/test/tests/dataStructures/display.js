@@ -12,8 +12,8 @@ test("init", 2, function() {
 
     currentAlgorithmFile = "";
     prettyPrint = sinon.spy();
-    sinon.stub(window, "createDrawFunction");
-    createDrawFunction.returns(f);
+    sinon.stub(utils, "createDrawFunction");
+    utils.createDrawFunction.returns(f);
     sinon.stub(window, "setInterval");
 
     dataStructures.init();
@@ -21,7 +21,7 @@ test("init", 2, function() {
     ok(prettyPrint.called, "Google Prettify should be activated.");
     ok(setInterval.calledWith(f), "The draw function interval should be set.");
 
-    createDrawFunction.restore();
+    utils.createDrawFunction.restore();
     setInterval.restore();
 });
 

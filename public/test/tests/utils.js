@@ -1,4 +1,4 @@
-module("utilities");
+module("utils");
 
 test("createDrawFunction", 1, function() {
     var context = testUtils.uniqueObject(),
@@ -7,7 +7,7 @@ test("createDrawFunction", 1, function() {
         },
         f = sinon.spy();
 
-    createDrawFunction(canvas, f)();
+    utils.createDrawFunction(canvas, f)();
 
     ok(f.calledWith(context),
        "The draw function should use the context of the supplied canvas.");
