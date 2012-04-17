@@ -4,3 +4,5 @@
  - Linked List (variant with sentinels instead of the current one)
  - Hash Map
  - Binary Tree
+- Clean up
+ - Use === instead of == and !== instead of !=.
