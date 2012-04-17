@@ -6,7 +6,7 @@ var heapsort = (function() {
     }
 
     function maxHeapify(array, root) {
-        var left = (root == 0) ? 1 : 2 * root,
+        var left = (root === 0) ? 1 : 2 * root,
             right = left + 1,
             largest = (left < array.heapSize && array[left] > array[root])
             ? left : root;
@@ -14,7 +14,7 @@ var heapsort = (function() {
         if (right < array.heapSize && array[right] > array[largest])
             largest = right;
 
-        if (largest != root) {
+        if (largest !== root) {
             exchange(array, root, largest);
             maxHeapify(array, largest);
         }

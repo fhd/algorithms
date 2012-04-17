@@ -3,7 +3,7 @@ function Queue() {
 
     this.enqueue = function(e) {
         elements[tail] = e;
-        if (tail == elements.length)
+        if (tail === elements.length)
             tail = 1;
         else
             tail++;
@@ -11,10 +11,10 @@ function Queue() {
 
     this.dequeue = function() {
         var e = elements[head];
-        if (head == elements.length)
+        if (head === elements.length)
             head = 1;
         else
             head++;
-        return (typeof e == "undefined") ? null : e;
+        return (typeof e === "undefined") ? null : e;
     };
 }

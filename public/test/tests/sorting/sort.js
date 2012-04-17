@@ -22,7 +22,7 @@ function containsAll(array1, array2) {
         return false;
 
     for (i = 0; i < array2.length; i++)
-        if (array1.indexOf(array2[i]) == -1)
+        if (array1.indexOf(array2[i]) === -1)
             return false;
     return true;
 };

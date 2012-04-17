@@ -28,9 +28,9 @@ var randomizedQuicksort = (function() {
     return function(array, start, end) {
         var split;
 
-        if (start == undefined)
+        if (typeof start === "undefined")
             start = 0;
-        if (end == undefined)
+        if (typeof end === "undefined")
             end = array.length;
 
         if (start < end - 1) {

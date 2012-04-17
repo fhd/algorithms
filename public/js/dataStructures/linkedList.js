@@ -3,24 +3,24 @@ function LinkedList() {
 
     this.insert = function(x) {
         x.next = head;
-        if (head != null)
+        if (head !== null)
             head.prev = x;
         head = x;
         x.prev = null;
     };
 
     this.delete = function(x) {
-        if (x.prev != null)
+        if (x.prev !== null)
             x.prev.next = x.next;
         else
             head = x.next;
-        if (x.next != null)
+        if (x.next !== null)
             x.next.prev = x.prev;
     }
 
     this.search = function(k) {
         var x = head;
-        while (x != null && x.key != k)
+        while (x !== null && x.key !== k)
             x = x.next;
         return x;
     }
@@ -32,7 +32,7 @@ function LinkedList() {
     this.toArray = function() {
         var array = [],
             x = head;
-        while (x != null) {
+        while (x !== null) {
             array.push(x.key);
             x = x.next;
         }

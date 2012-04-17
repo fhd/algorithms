@@ -29,7 +29,7 @@ var sorting = {};
     };
 
     sorting.init = function(stack) {
-        if (typeof currentAlgorithmFile != "undefined") {
+        if (typeof currentAlgorithmFile !== "undefined") {
             prettyPrint(); // Prettify
 
             array.shuffle();

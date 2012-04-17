@@ -27,7 +27,7 @@ var dataStructures = {};
         boxMover = setInterval(function() {
             var finished = true;
             $.each(boxesToMove, function(_, box) {
-                if (typeof box.goal == "undefined")
+                if (typeof box.goal === "undefined")
                     return;
 
                 finished = false;
@@ -170,7 +170,7 @@ var dataStructures = {};
     dataStructures.boxes = [];
 
     dataStructures.init = function(ds) {
-        if (typeof currentAlgorithmFile != "undefined")
+        if (typeof currentAlgorithmFile !== "undefined")
             prettyPrint(); // Prettify
 
         if (ds instanceof Stack)
@@ -190,7 +190,7 @@ var dataStructures = {};
 
         function insertFunction() {
             var pos;
-            if (index == 0)
+            if (index === 0)
                 pos = 0;
             else
                 pos = dataStructures.boxes[index - 1].pos +
@@ -204,7 +204,7 @@ var dataStructures = {};
             callback();
         }
 
-        if (index == 0)
+        if (index === 0)
             moveBoxes(boxWidth, 0, insertFunction);
         else
             insertFunction();
