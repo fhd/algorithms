@@ -4,3 +4,5 @@
  - Linked List (variant with sentinels instead of the current one)
  - Hash Map
  - Binary Tree
+- Remove duplication between sorting/display.js and
+  dataStructures/display.js (and the tests)
