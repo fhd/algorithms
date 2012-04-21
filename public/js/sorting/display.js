@@ -1,13 +1,9 @@
 var sorting = {};
 
-(function(sorting) {
+(function(sorting, display) {
     var array = [], i;
 
     function draw(context, width, height) {
-        context.clearRect(0, 0, width, height);
-        context.fillStyle = "rgb(0, 0, 0)";
-        context.font = "12px sans";
-        context.textBaseline = "top";
         $.each(array, function(index, value) {
             var barWidth = 5;
             context.fillRect(index * barWidth * 2 + barWidth,
@@ -29,32 +25,31 @@ var sorting = {};
     };
 
     sorting.init = function(stack) {
-        if (typeof currentAlgorithmFile !== "undefined") {
-            prettyPrint(); // Prettify
+        if (typeof currentAlgorithmFile === "undefined")
+            return;
 
+        array.shuffle();
+        $("#shuffle").click(function() {
             array.shuffle();
-            $("#shuffle").click(function() {
-                array.shuffle();
-            });
+        });
 
-            $("#sort").click(function() {
-                var controls = $("#algorithms, #shuffle, #sort"),
-                    worker = new Worker("js/sorting/worker.js");
-                controls.attr("disabled", "true");
-                worker.onmessage = function(event) {
-                    var data = event.data;
-                    array = data.array;
-                    if (data.finished)
-                        controls.removeAttr("disabled");
-                };
-                worker.postMessage({
-                    file: currentAlgorithmFile,
-                    functionName: currentAlgorithmFunction,
-                    "array": array
-                });
+        $("#sort").click(function() {
+            var controls = $("#algorithms, #shuffle, #sort"),
+                worker = new Worker("js/sorting/worker.js");
+            controls.attr("disabled", "true");
+            worker.onmessage = function(event) {
+                var data = event.data;
+                array = data.array;
+                if (data.finished)
+                    controls.removeAttr("disabled");
+            };
+            worker.postMessage({
+                file: currentAlgorithmFile,
+                functionName: currentAlgorithmFunction,
+                "array": array
             });
+        });
 
-            setInterval(utils.createDrawFunction($("#canvas")[0], draw), 10);
-        }
+        display.init(draw);
     };
-})(sorting);
+})(sorting, display);

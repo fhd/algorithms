@@ -12,10 +12,4 @@ var testUtils = {};
             __id: uniqueId()
         };
     };
-
-    testUtils.uniqueFunction = function() {
-        return function() {
-            var id = uniqueId();
-        };
-    }
 })(testUtils);

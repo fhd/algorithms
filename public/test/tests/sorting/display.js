@@ -7,20 +7,10 @@ test("Array.shuffle", 1, function() {
     notDeepEqual(array, shuffledArray);
 });
 
-test("init", 2, function() {
-    var f = testUtils.uniqueFunction();
-
+test("init", 1, function() {
     currentAlgorithmFile = "";
-    prettyPrint = sinon.spy();
-    sinon.stub(utils, "createDrawFunction");
-    utils.createDrawFunction.returns(f);
-    sinon.stub(window, "setInterval");
-
+    sinon.stub(display, "init");
     sorting.init();
-
-    ok(prettyPrint.called, "Google Prettify should be activated.");
-    ok(setInterval.calledWith(f), "The draw function interval should be set.");
-
-    utils.createDrawFunction.restore();
-    setInterval.restore();
+    ok(display.init.called, "The display should be initialised.");
+    display.init.restore();
 });

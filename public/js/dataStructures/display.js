@@ -1,11 +1,7 @@
 var dataStructures = {};
 
-(function(dataStructures) {
+(function(dataStructures, display) {
     function draw(context, width, height) {
-        context.clearRect(0, 0, width, height);
-        context.fillStyle = "rgb(0, 0, 0)";
-        context.font = "12px sans";
-        context.textBaseline = "top";
         $.each(dataStructures.boxes, function(_, box) {
             var padding = 5,
                 textPadding = 5;
@@ -170,9 +166,6 @@ var dataStructures = {};
     dataStructures.boxes = [];
 
     dataStructures.init = function(ds) {
-        if (typeof currentAlgorithmFile !== "undefined")
-            prettyPrint(); // Prettify
-
         if (ds instanceof Stack)
             createStackOperations(ds);
         else if (ds instanceof Queue)
@@ -180,7 +173,7 @@ var dataStructures = {};
         else if (ds instanceof LinkedList)
             createLinkedListOperations(ds);
 
-        setInterval(utils.createDrawFunction($("#canvas")[0], draw), 10);
+        display.init(draw);
     };
 
     dataStructures.addBox = function(index, value, callback) {
@@ -224,4 +217,4 @@ var dataStructures = {};
         else
             callback();
     }
-})(dataStructures);
+})(dataStructures, display);
