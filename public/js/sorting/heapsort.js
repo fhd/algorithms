@@ -9,7 +9,7 @@ var heapsort = (function() {
         var left = (root === 0) ? 1 : 2 * root,
             right = left + 1,
             largest = (left < array.heapSize && array[left] > array[root])
-            ? left : root;
+                ? left : root;
 
         if (right < array.heapSize && array[right] > array[largest])
             largest = right;
@@ -21,18 +21,16 @@ var heapsort = (function() {
     }
 
     function buildMaxHeap(array) {
-        var i;
         array.heapSize = array.length;
-        for (i = Math.round(array.length / 2); i >= 0; i--) {
+        for (var i = Math.round(array.length / 2); i >= 0; i--) {
             maxHeapify(array, i);
             update(array);
         }
     }
 
     return function(array) {
-        var i;
         buildMaxHeap(array);
-        for (i = array.length - 1; i >= 1; i--) {
+        for (var i = array.length - 1; i >= 1; i--) {
             exchange(array, 0, i);
             array.heapSize--;
             maxHeapify(array, 0);

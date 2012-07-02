@@ -1,5 +1,6 @@
 function Stack() {
-    var top = 0, elements = [];
+    var top = 0,
+        elements = [];
 
     this.stackEmpty = function() {
         return (top === 0);

@@ -1,7 +1,5 @@
-var algorithms = require("./lib/algorithms.js"),
-    express = require("express"),
-    app = module.exports = express.createServer(),
-    fs = require("fs");
+var express = require("express"),
+    app = module.exports = express.createServer();
 
 app.configure(function() {
     app.set("views", __dirname + "/views");
@@ -20,6 +18,8 @@ app.configure("production", function() {
     app.use(express.errorHandler());
 });
 
+var algorithms = require("./lib/algorithms.js");
+
 app.get("/", function(req, res) {
     res.render("index", {"categories": algorithms.categories});
 });
@@ -27,6 +27,7 @@ app.get("/", function(req, res) {
 app.get("/:algorithm", function(req, res) {
     var algorithm = algorithms.algorithms[req.params.algorithm];
     if (algorithm) {
+        var fs = require("fs");
         algorithm.code = fs.readFileSync("public/js/" + algorithm.category
                                          + "/" + algorithm.file);
         res.render(algorithm.category, {
