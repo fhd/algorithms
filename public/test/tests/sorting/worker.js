@@ -7,11 +7,10 @@ test("sleep", 1, function() {
 });
 
 test("update", 2, function() {
-    var array = [1, 2, 3];
-
     sinon.stub(window, "sleep");
     sinon.stub(window, "postMessage");
 
+    var array = [1, 2, 3];
     update(array);
 
     ok(sleep.calledWith(200), "Should sleep on each update.");

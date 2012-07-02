@@ -1,12 +1,10 @@
 module("display");
 
 test("init", 3, function() {
-    var draw;
-
     currentAlgorithmFile = "";
     $("body").append($("<canvas/>").attr("id", "canvas"));
 
-    draw = sinon.spy();
+    var draw = sinon.spy();
     prettyPrint = sinon.spy();
 
     sinon.stub(window, "setInterval");

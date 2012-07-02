@@ -8,20 +8,17 @@ module("sorting/sort", {
 });
 
 function isSorted(array) {
-    var i;
-    for (i = 0; i < array.length - 1; i++)
+    for (var i = 0; i < array.length - 1; i++)
         if (array[i] >= array[i + 1])
             return false;
     return true;
 };
 
 function containsAll(array1, array2) {
-    var i;
-
     if (array1.length < array2.length)
         return false;
 
-    for (i = 0; i < array2.length; i++)
+    for (var i = 0; i < array2.length; i++)
         if (array1.indexOf(array2[i]) === -1)
             return false;
     return true;

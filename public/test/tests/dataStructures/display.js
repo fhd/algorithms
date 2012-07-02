@@ -56,105 +56,87 @@ module("dataStructures/display", {
 });
 
 test("initStack", 8, function() {
-    var pushButton, popButton;
-
-    function testPush(value) {
-        $("#pushInput").val(value);
-        pushButton.click();
-        ok(dataStructures.addBox.calledWith(0, value), "A box with value " +
-           value + " should be added.");        
-    }
-
-    function testPop(value) {
-        popButton.click()
-        ok(dataStructures.removeBox.calledWith(0), "The box with value " +
-           value + " should be removed.");
-        equal($("#popOutput").text(), value);
-    }
-
     dataStructures.init(new Stack());
 
-    pushButton = $("#pushButton");
-    popButton = $("#popButton");
+    var pushButton = $("#pushButton"),
+        popButton = $("#popButton");
 
     ok(pushButton.length,
        "A button for the push operation should be created.");
     ok(popButton.length,
        "A button for the pop operation should be created.");
 
-    testPush("5");
-    testPush("6");
+    ["5", "6"].forEach(function(value) {
+        $("#pushInput").val(value);
+        pushButton.click();
+        ok(dataStructures.addBox.calledWith(0, value), "A box with value " +
+           value + " should be added.");        
+    });
 
-    testPop("6");
-    testPop("5");
+    ["6", "5"].forEach(function(value) {
+        popButton.click()
+        ok(dataStructures.removeBox.calledWith(0), "The box with value " +
+           value + " should be removed.");
+        equal($("#popOutput").text(), value);
+    });
 });
 
 test("initQueue", 8, function() {
-    var enqueueButton, dequeueButton;
-
-    function testEnqueue(value, index) {
-        $("#enqueueInput").val(value);
-        enqueueButton.click();
-        ok(dataStructures.addBox.calledWith(index, value), "A box with value " +
-           value + " should be added at position " + index + ".");
-    }
-
-    function testDequeue(value, index) {
-        dequeueButton.click()
-        ok(dataStructures.removeBox.calledWith(index), "The box at index " +
-           index + " should be removed.");
-        equal($("#dequeueOutput").text(), value);
-    }
-
     dataStructures.init(new Queue());
 
-    enqueueButton = $("#enqueueButton");
-    dequeueButton = $("#dequeueButton");
+    var enqueueButton = $("#enqueueButton"),
+        dequeueButton = $("#dequeueButton");
 
     ok(enqueueButton.length,
        "A button for the enqueue operation should be created.");
     ok(dequeueButton.length,
        "A button for the dequeue operation should be created.");
 
-    testEnqueue("5", 0);
-    testEnqueue("6", 0);
+    [["5", 0], ["6", 0]].forEach(function(pair) {
+        var value = pair[0],
+            index = pair[1];
+        $("#enqueueInput").val(value);
+        enqueueButton.click();
+        ok(dataStructures.addBox.calledWith(index, value), "A box with value " +
+           value + " should be added at position " + index + ".");
+    });
 
-    testDequeue("5", 1);
-    testDequeue("6", 0);
+    [["5", 1], ["6", 0]].forEach(function(pair) {
+        var value = pair[0],
+            index = pair[1];
+        dequeueButton.click()
+        ok(dataStructures.removeBox.calledWith(index), "The box at index " +
+           index + " should be removed.");
+        equal($("#dequeueOutput").text(), value);
+    });
 });
 
 test("initLinkedList", 8, function() {
-    var insertButton, deleteButton;
-
-    function testInsert(value, index) {
-        $("#insertInput").val(value);
-        insertButton.click();
-        ok(dataStructures.addBox.calledWith(index, value), "A box with value " +
-           value + " should be added at position " + index + ".");
-    }
-
-    function testDelete(value, index) {
-        $("#deleteInput").val(value);
-        deleteButton.click()
-        ok(dataStructures.removeBox.calledWith(index), "The box at index " +
-           index + " should be removed.");
-    }
-
     dataStructures.init(new LinkedList());
 
-    insertButton = $("#insertButton");
-    deleteButton = $("#deleteButton");
+    var insertButton = $("#insertButton"),
+        deleteButton = $("#deleteButton");
 
     ok(insertButton.length,
        "A button for the insert operation should be created.");
     ok(deleteButton.length,
        "A button for the delete operation should be created.");
 
-    testInsert("5", 0);
-    testInsert("6", 1);
-    testInsert("7", 2);
+    [["5", 0], ["6", 1], ["7", 2]].forEach(function(pair) {
+        var value = pair[0],
+            index = pair[1];
+        $("#insertInput").val(value);
+        insertButton.click();
+        ok(dataStructures.addBox.calledWith(index, value), "A box with value " +
+           value + " should be added at position " + index + ".");
+    });
 
-    testDelete("6", 1);
-    testDelete("5", 0);
-    testDelete("7", 0);
+    [["6", 1], ["5", 0], ["7", 0]].forEach(function(pair) {
+        var value = pair[0],
+            index = pair[1];
+        $("#deleteInput").val(value);
+        deleteButton.click()
+        ok(dataStructures.removeBox.calledWith(index), "The box at index " +
+           index + " should be removed.");
+    });
 });
