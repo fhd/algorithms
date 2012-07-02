@@ -1,18 +1,9 @@
 var sorting = {};
 
 (function(sorting, display) {
-    var array = [], i;
+    var array = [];
 
-    function draw(context, width, height) {
-        $.each(array, function(index, value) {
-            var barWidth = 5;
-            context.fillRect(index * barWidth * 2 + barWidth,
-                             ((array.length + 1) - value) * barWidth,
-                             barWidth, barWidth * value);
-        });
-    };
-
-    for (i = 0; i < 30; i++)
+    for (var i = 0; i < 30; i++)
         array[i] = i + 1;
 
     Array.prototype.shuffle = function() {
@@ -34,9 +25,10 @@ var sorting = {};
         });
 
         $("#sort").click(function() {
-            var controls = $("#algorithms, #shuffle, #sort"),
-                worker = new Worker("js/sorting/worker.js");
+            var controls = $("#algorithms, #shuffle, #sort");
             controls.attr("disabled", "true");
+
+            var worker = new Worker("js/sorting/worker.js");
             worker.onmessage = function(event) {
                 var data = event.data;
                 array = data.array;
@@ -49,6 +41,15 @@ var sorting = {};
                 "array": array
             });
         });
+
+        function draw(context, width, height) {
+            $.each(array, function(index, value) {
+                var barWidth = 5;
+                context.fillRect(index * barWidth * 2 + barWidth,
+                                 ((array.length + 1) - value) * barWidth,
+                                 barWidth, barWidth * value);
+            });
+        };
 
         display.init(draw);
     };

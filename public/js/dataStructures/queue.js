@@ -1,5 +1,7 @@
 function Queue() {
-    var head = 0, tail = 0, elements = [];
+    var head = 0,
+        tail = 0,
+        elements = [];
 
     this.enqueue = function(e) {
         elements[tail] = e;

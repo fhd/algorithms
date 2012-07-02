@@ -1,7 +1,6 @@
 (function() {
     function makeNumeric(array) {
-        var i;
-        for (i = 0; i < array.length; i++)
+        for (var i = 0; i < array.length; i++)
             array[i] = parseInt(array[i]);
     }
 
@@ -16,11 +15,10 @@
     }
 
     onmessage = function(event) {
-        var array = event.data.array,
-            algorithm;
+        var array = event.data.array;
         makeNumeric(array);
         importScripts(event.data.file);
-        algorithm = eval(event.data.functionName);
+        var algorithm = eval(event.data.functionName);
         algorithm(array);
         postMessage({"array": array, finished: true});
     };

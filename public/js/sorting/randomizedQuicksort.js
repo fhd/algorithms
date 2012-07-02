@@ -8,10 +8,9 @@ var randomizedQuicksort = (function() {
     function partition(array, start, end) {
         var last = end - 1,
             pivot = array[last],
-            i = start - 1,
-            j;
+            i = start - 1;
 
-        for (j = start; j < last; j++)
+        for (var j = start; j < last; j++)
             if (array[j] <= pivot)
                 exchange(array, ++i, j);
 
@@ -26,15 +25,13 @@ var randomizedQuicksort = (function() {
     }
 
     return function(array, start, end) {
-        var split;
-
         if (typeof start === "undefined")
             start = 0;
         if (typeof end === "undefined")
             end = array.length;
 
         if (start < end - 1) {
-            split = randomizedPartition(array, start, end);
+            var split = randomizedPartition(array, start, end);
             update(array);
             randomizedQuicksort(array, start, split);
             randomizedQuicksort(array, split + 1, end);

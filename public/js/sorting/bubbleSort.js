@@ -1,8 +1,6 @@
 function bubbleSort(array) {
-    var i, j, temp;
-
-    for (i = 0; i < array.length; i++) {
-        for (j = array.length; j > i; j--)
+    for (var i = 0; i < array.length; i++) {
+        for (var j = array.length; j > i; j--)
             if (array[j] < array[j - 1]) {
                 temp = array[j];
                 array[j] = array[j - 1];
